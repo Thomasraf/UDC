@@ -214,6 +214,41 @@ public class Database{
 		return unique;
 	}
 	
+	public boolean getSearchAccount(String accountName){ //Signing Up
+		String x,y;
+		boolean unique = false;
+		Connection cnt = getConnection();
+		
+		
+		String query2 = "SELECT * FROM udc.accounts WHERE username = ('"+accountName+"')";
+
+		//create string query
+		
+		try {
+			
+			PreparedStatement ps2 = getConnection().prepareStatement(query2);
+		
+			
+			ResultSet rs = ps2.executeQuery();
+	
+			if(rs.next()) { //User already exists
+				unique = false;
+			}
+			else {
+				unique = true;
+			}
+			
+			//close all the resources
+			
+			rs.close();
+			cnt.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return unique;
+	}
+	
 	public boolean loggingAccount(account registeredAccount) { //Logging In
 		Connection cnt = getConnection(); 
 		boolean loggedIn = false;
@@ -959,6 +994,8 @@ public ArrayList<Playlist> getSearchPlaylist(String searchText) {
 		}
 		return null; 
 	}
+	
+	
 	
 	public ArrayList<Song> getFavoriteSong(String username){
 		//get getConnection() from db
