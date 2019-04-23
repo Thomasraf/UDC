@@ -33,6 +33,7 @@ import model.generalModel;
 import model.Database;
 
 import java.awt.Color;
+import javax.swing.JComboBox;
 
 public class SigningUpView extends JFrame{
 	private volatile static SigningUpView instance = null;
@@ -40,8 +41,8 @@ public class SigningUpView extends JFrame{
 	generalController controller;
 	private JTextField UsernameText;
 	private JTextField PasswordText;
-	private JPasswordField textFieldChosenFile;
 	String fileName;
+	JComboBox comboBox;
 	
 	
 	public static SigningUpView getInstance() {
@@ -104,37 +105,18 @@ public class SigningUpView extends JFrame{
 		lblNewLabel.setBounds(159, 51, 99, 86);
 		getContentPane().add(lblNewLabel);
 		
-		JLabel lblDisplayPicture = new JLabel("Picture");
-		lblDisplayPicture.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblDisplayPicture.setBounds(100, 259, 89, 50);
-		getContentPane().add(lblDisplayPicture);
+		JLabel lblType = new JLabel("Type");
+		lblType.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblType.setBounds(100, 253, 89, 50);
+		getContentPane().add(lblType);
 		
-		textFieldChosenFile = new JPasswordField(10);
-		textFieldChosenFile.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		textFieldChosenFile.setBounds(189, 265, 295, 32);
-		getContentPane().add(textFieldChosenFile);
-		
-		JButton btnChoosePicture = new JButton("Choose File");
-		btnChoosePicture.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnChoosePicture.setBackground(new Color(254, 254, 250));
-		btnChoosePicture.setBounds(189, 318, 109, 49);
-		getContentPane().add(btnChoosePicture);
-		btnChoosePicture.addActionListener(new btn_ChoosePicture());
+		comboBox = new JComboBox();
+		comboBox.addItem("Listener");
+		comboBox.addItem("Artist");
+		comboBox.setBounds(189, 265, 295, 32);
+		getContentPane().add(comboBox);
 
 	}
-	
-	class btn_ChoosePicture implements ActionListener
-	 {		
-		 public void actionPerformed(ActionEvent e)
-		 {
-			 JFileChooser chooser = new JFileChooser();
-			 chooser.showOpenDialog(null);
-			 File f = chooser.getSelectedFile();
-			 fileName = f.getAbsolutePath();
-			 textFieldChosenFile.setText(fileName);
-		 }
-		 
-	 }
 	
 	class btn_Confirm implements ActionListener
 	{
@@ -143,20 +125,12 @@ public class SigningUpView extends JFrame{
 			{
 				String username = UsernameText.getText();
 				String password = PasswordText.getText();
-				String path = textFieldChosenFile.getText();
-						
+				String type = comboBox.getName();
+				System.out.println(type);
 				signUp = new account(username,password); 
 
 
-				int x = generalController.getInstance().gettingAccountData(username, password,path);
-				
-				if(x == 1) {
-					JOptionPane.showMessageDialog(null, "Signing Up Successful!");
-					HomeView.getInstance().setVisible(true);
-				}
-				else {
-					JOptionPane.showMessageDialog(null, "Username already exisits! Please Try Again!");
-				}
+				generalController.getInstance().gettingAccountData(username, password,type);
 
 
 				
@@ -174,7 +148,6 @@ public class SigningUpView extends JFrame{
 			JOptionPane.showMessageDialog(null, "Signing Up Successful!");
 			HomeView.getInstance().setVisible(true);
 		}
-//		
 		public void signingFailed() {
 			JOptionPane.showMessageDialog(null, "Username already exisits! Please Try Again!");
 		}
