@@ -38,7 +38,7 @@ public class Listener_FollowView extends JFrame {
 	JList playlistJList,songJList;
 	ArrayList<Song> userSongs;
 	ArrayList<Playlist> userPlaylists;
-	JButton btnFollow,Refreshbtn;
+	JButton btnFollow,Refreshbtn,btnAddSong,btnAddPlaylist;
 	String searchingText,currentUser;
 	JButton ProfileName_Dashboard;
 	
@@ -654,6 +654,7 @@ public class Listener_FollowView extends JFrame {
 		btnFollow.setBackground(Color.BLACK);
 		btnFollow.setBounds(603, 126, 136, 35);
 		Dashboard.add(btnFollow);
+		btnFollow.addActionListener(new btn_Follow());
 		
 
 		playlistJList = new JList();
@@ -663,6 +664,22 @@ public class Listener_FollowView extends JFrame {
 		songJList = new JList();
 		songJList.setBounds(387, 204, 367, 288);
 		Dashboard.add(songJList);
+		
+		btnAddPlaylist = new JButton("Add Playlist");
+		btnAddPlaylist.setForeground(Color.WHITE);
+		btnAddPlaylist.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnAddPlaylist.setBackground(Color.BLACK);
+		btnAddPlaylist.setBounds(299, 126, 136, 35);
+		Dashboard.add(btnAddPlaylist);
+		btnAddPlaylist.addActionListener(new btn_AddPlaylist());
+		
+		btnAddSong = new JButton("Add Song");
+		btnAddSong.setForeground(Color.WHITE);
+		btnAddSong.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnAddSong.setBackground(Color.BLACK);
+		btnAddSong.setBounds(457, 126, 136, 35);
+		Dashboard.add(btnAddSong);
+		btnAddSong.addActionListener(new btn_AddSong());
 	}
 	
 	class btn_Refresh implements ActionListener
@@ -691,6 +708,31 @@ public class Listener_FollowView extends JFrame {
 		}
 	}
 	
+	class btn_AddPlaylist implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			String songName = userSongs.get(songJList.getSelectedIndex()).getSongName();
+			generalModel.getInstance().addListenerPlaylists(songName,currentUser);
+		}
+	}
+	
+	class btn_AddSong implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			String playlistName = userPlaylists.get(playlistJList.getSelectedIndex()).getPlaylistName();
+			generalModel.getInstance().addListenerSongs(playlistName,currentUser);
+		}
+	}
+	
+	class btn_Follow implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			
+		}
+	}
 	public void setText(String searchText) {
 		this.searchingText = searchText;
 		ProfileName_Dashboard.setText(searchingText);
