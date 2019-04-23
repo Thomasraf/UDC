@@ -61,7 +61,12 @@ public class Database{
 		String query6 = "CREATE TABLE IF NOT EXISTS songs_in_playlist(PlaylistID int PRIMARY KEY, PlaylistName varchar(255),SongID int(11), SongName varchar(255));";
 		String query7 = "CREATE TABLE IF NOT EXISTS playlistData(PlaylistID int NOT NULL AUTO_INCREMENT PRIMARY KEY, picture BLOB,PlaylistName varchar(255), description varchar(255));";
 		String query8 = "CREATE TABLE IF NOT EXISTS accountData(Username varchar(255) PRIMARY KEY, Profile_Picture BLOB);";
+
 		String query9 = "CREATE TABLE IF NOT EXISTS album(albumid int NOT NULL AUTO_INCREMENT PRIMARY KEY, name varchar(255), username varchar(255), albumcover LONGBLOB);";
+
+		String query20 = "CREATE TABLE IF NOT EXISTS followingListener(Username varchar(255), Listener_Name varchar(255));";
+		String query21 = "CREATE TABLE IF NOT EXISTS followingArtist(Username varchar(255), Artist_Name varchar(255));";
+
 		
 		String packetQuery = "SET GLOBAL max_allowed_packet=16777216;";
 		
@@ -72,6 +77,8 @@ public class Database{
 		String queryIncrement5 = "ALTER TABLE songData auto_increment = 1";
 		String queryIncrement7 = "ALTER TABLE playlistData auto_increment = 1";
 		String queryIncrement8 = "ALTER TABLE accountData auto_increment = 1";
+		String queryIncrement20 = "ALTER TABLE followingListener auto_increment = 1";
+		String queryIncrement21 = "ALTER TABLE followingArtist auto_increment = 1";
 //		String queryIncrement7 = "ALTER TABLE user_songs auto_increment = 1";
 //		String queryIncrement6 = "ALTER TABLE song_in_playlist = 1";
 		
@@ -92,9 +99,15 @@ public class Database{
 			ps7.execute();
 			PreparedStatement ps8 = getConnection().prepareStatement(query8);
 			ps8.execute();
+			PreparedStatement ps20 = getConnection().prepareStatement(query20);
+			ps20.execute();
+			PreparedStatement ps21 = getConnection().prepareStatement(query21);
+			ps21.execute();
 			
 			PreparedStatement pq = getConnection().prepareStatement(packetQuery);
 			pq.execute();
+			
+
 			
 			ps = getConnection().prepareStatement(queryIncrement);
 			ps.execute();
@@ -112,6 +125,10 @@ public class Database{
 			ps7.execute();
 			ps8 = getConnection().prepareStatement(queryIncrement8);
 			ps8.execute();
+			ps20 = getConnection().prepareStatement(queryIncrement20);
+			ps20.execute();
+			ps21 = getConnection().prepareStatement(queryIncrement21);
+			ps21.execute();
 			
 		}catch (SQLException e) {
 			e.printStackTrace();
@@ -745,33 +762,77 @@ public class Database{
 		
 	}
 	
-public void addSearchPlaylists(String playlistName,String username) {
+	public void addListenerSong(String songName,String username) {
+			
+			//get getConnection() from db
+			Connection cnt = getConnection();
+			int x = 0;
+			int y = 0;
+			String query = "INSERT INTO swdespa.songs (Title,Artist,Album,Genre,Year,Username,Play_Count,Favorite) SELECT Title,Artist,Album,Genre,Year,('"+username+"'),('"+x+"'),('"+y+"') FROM swdespa.songs WHERE Title = ('"+songName+"');";
+			//create string qu
+			
+			try {
+				//create prepared statement
+				PreparedStatement ps = cnt.prepareStatement(query);
+				ps.execute();
+				
+				ps.close();
+				cnt.close();
+			} catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	public void addSearchPlaylists(String playlistName,String username) {
+			
+			//get getConnection() from db
+			Connection cnt = getConnection();
+			int x = 0;
+			int y = 0;
+			int z = 0;
+			String query = "INSERT INTO swdespa.user_playlists (Username,Playlist,Favorite,Privacy) SELECT ('"+username+"'),PlaylistName,('"+x+"'),('"+y+"'), FROM swdespa.playlists WHERE PlaylistName = ('"+playlistName+"') AND Privacy = ('"+z+"');";
+			
+			try {
+				//create prepared statement	
+				PreparedStatement ps = cnt.prepareStatement(query);
+				ps.execute();
+				//get result and store in result set
+				
+				
+				//close all the resources
+				ps.close();
+				cnt.close();
+				
+			
+	
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			//return null; 
+			
+		}
+	
+	public void addListenerPlaylist(String playlistName,String username) {
 		
 		//get getConnection() from db
 		Connection cnt = getConnection();
 		int x = 0;
 		int y = 0;
 		int z = 0;
+
 		String query = "INSERT INTO udc.playlists (Username,Playlist,Favorite,Privacy) SELECT ('"+username+"'),PlaylistName,('"+x+"'),('"+y+"'), FROM swdespa.playlists WHERE PlaylistName = ('"+playlistName+"') AND Privacy = ('"+z+"');";
+
 		
 		try {
-			//create prepared statement	
+			//create prepared statement
 			PreparedStatement ps = cnt.prepareStatement(query);
 			ps.execute();
-			//get result and store in result set
 			
-			
-			//close all the resources
 			ps.close();
 			cnt.close();
-			
-		
-
-		} catch (SQLException e) {
+		} catch(SQLException e) {
 			e.printStackTrace();
 		}
-		//return null; 
-		
 	}
 	
 public ArrayList<Playlist> getSearchPlaylist(String searchText) {
