@@ -739,7 +739,7 @@ public class Database{
 		Connection cnt = getConnection();
 		int x = 0;
 		int y = 0;
-		String query = "INSERT INTO udc.songs (Title,Artist,Album,Genre,Year,Username,Play_Count,Favorite) SELECT Title,Artist,Album,Genre,Year,('"+username+"'),('"+x+"'),('"+y+"') FROM swdespa.songs WHERE Title = ('"+songName+"');";
+		String query = "INSERT INTO udc.songs (Title,Artist,Album,Genre,Year,Username,Play_Count,Favorite) SELECT Title,Artist,Album,Genre,Year,('"+username+"'),('"+x+"'),('"+y+"') FROM udc.songs WHERE Title = ('"+songName+"');";
 		//create string qu
 		
 		try {
@@ -768,7 +768,7 @@ public class Database{
 			Connection cnt = getConnection();
 			int x = 0;
 			int y = 0;
-			String query = "INSERT INTO swdespa.songs (Title,Artist,Album,Genre,Year,Username,Play_Count,Favorite) SELECT Title,Artist,Album,Genre,Year,('"+username+"'),('"+x+"'),('"+y+"') FROM swdespa.songs WHERE Title = ('"+songName+"');";
+			String query = "INSERT INTO udc.songs (Title,Artist,Album,Genre,Year,Username,Play_Count,Favorite) SELECT Title,Artist,Album,Genre,Year,('"+username+"'),('"+x+"'),('"+y+"') FROM udc.songs WHERE Title = ('"+songName+"');";
 			//create string qu
 			
 			try {
@@ -790,7 +790,7 @@ public class Database{
 			int x = 0;
 			int y = 0;
 			int z = 0;
-			String query = "INSERT INTO swdespa.user_playlists (Username,Playlist,Favorite,Privacy) SELECT ('"+username+"'),PlaylistName,('"+x+"'),('"+y+"'), FROM swdespa.playlists WHERE PlaylistName = ('"+playlistName+"') AND Privacy = ('"+z+"');";
+			String query = "INSERT INTO udc.user_playlists (Username,Playlist,Favorite,Privacy) SELECT ('"+username+"'),PlaylistName,('"+x+"'),('"+y+"'), FROM udc.playlists WHERE PlaylistName = ('"+playlistName+"') AND Privacy = ('"+z+"');";
 			
 			try {
 				//create prepared statement	
@@ -820,7 +820,7 @@ public class Database{
 		int y = 0;
 		int z = 0;
 
-		String query = "INSERT INTO udc.playlists (Username,Playlist,Favorite,Privacy) SELECT ('"+username+"'),PlaylistName,('"+x+"'),('"+y+"'), FROM swdespa.playlists WHERE PlaylistName = ('"+playlistName+"') AND Privacy = ('"+z+"');";
+		String query = "INSERT INTO udc.playlists (Username,Playlist,Favorite,Privacy) SELECT ('"+username+"'),PlaylistName,('"+x+"'),('"+y+"'), FROM udc.playlists WHERE PlaylistName = ('"+playlistName+"') AND Privacy = ('"+z+"');";
 
 		
 		try {
