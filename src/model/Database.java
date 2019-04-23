@@ -739,7 +739,7 @@ public class Database{
 		int y = 0;
 		int z = 0;
 
-		String query = "INSERT INTO udc.playlists (Username,Playlist,Favorite,Privacy) SELECT ('"+username+"'),PlaylistName,('"+x+"'),('"+y+"'), FROM udc.playlists WHERE PlaylistName = ('"+playlistName+"') AND Privacy = ('"+z+"');";
+		String query = "INSERT INTO udc.user_playlists (Username,PlaylistName,Favorite,Privacy) SELECT ('"+username+"'),PlaylistName,('"+x+"'),('"+y+"') FROM udc.user_playlists WHERE PlaylistName = ('"+playlistName+"') AND Privacy = ('"+z+"');";
 
 		
 		try {
