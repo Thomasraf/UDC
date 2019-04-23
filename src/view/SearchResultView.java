@@ -31,11 +31,11 @@ public class SearchResultView extends JFrame {
 	boolean evenClick = false;
 	private JButton Artist_Dashboard;
 	JButton Refreshbtn,btnAddSong,btnAddPlaylist,btnGoToListener,btnGoToArtist;
-	JList SongsList,listPlaylist;
+	JList SongsList,ArtistFollowers_List;
 	ArrayList<Song> searchSongs, userSongs;
 	String currentUser;
 	ArrayList<Playlist> searchPlaylist;
-	ArrayList<account> searchingListenerAccount,searchArtistAccount;
+	ArrayList<account> searchingListenerAccount,searchingArtistAccount;
 	private volatile static SearchResultView instance = null;
 	public static SearchResultView getInstance() {
         if (instance == null) {
@@ -561,9 +561,9 @@ public class SearchResultView extends JFrame {
 		ListPlaylist.setBounds(580, 50, 174, 30);
 		Dashboard.add(ListPlaylist);
 		
-		listPlaylist = new JList();
-		listPlaylist.setBounds(582, 79, 170, 417);
-		Dashboard.add(listPlaylist);
+		ArtistFollowers_List = new JList();
+		ArtistFollowers_List.setBounds(582, 79, 170, 417);
+		Dashboard.add(ArtistFollowers_List);
 		
 		JButton button_5 = new JButton("");
 		button_5.setEnabled(false);
@@ -601,10 +601,12 @@ public class SearchResultView extends JFrame {
 			searchSongs = generalModel.getInstance().getSearchSongs(searchingText);
 			searchPlaylist = generalModel.getInstance().getSearchPlaylist(searchingText);
 			searchingListenerAccount = generalModel.getInstance().gettingFollowersList(searchingText);
+			searchingArtistAccount = generalModel.getInstance().gettingFollowersArtistList(searchingText);
 			
 			DefaultListModel DLM1 = new DefaultListModel();
 			DefaultListModel DLM2 = new DefaultListModel();
 			DefaultListModel DLM3 = new DefaultListModel();
+			DefaultListModel DLM4 = new DefaultListModel();
 			
 			for(int a = 0; a < searchSongs.size(); a++)
 				DLM1.addElement(searchSongs.get(a).getSongName());
@@ -613,13 +615,13 @@ public class SearchResultView extends JFrame {
 				DLM2.addElement(searchPlaylist.get(b).getPlaylistName());
 			for(int c = 0; c < searchingListenerAccount.size();c++)
 				DLM3.addElement(searchingListenerAccount.get(c).getUsername());
-			
-			
+			for(int d = 0; d < searchingArtistAccount.size();d++)
+				DLM4.addElement(searchingArtistAccount.get(d).getUsername());
 			
 			SongsList.setModel(DLM1);
-			listPlaylist.setModel(DLM2);
+			ArtistFollowers_List.setModel(DLM2);
 			Followers_List.setModel(DLM3);
-			
+			ArtistFollowers_List.setModel(DLM4);
 			
 		}
 	}
