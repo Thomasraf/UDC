@@ -123,6 +123,16 @@ public class generalModel {
 		return Database.getInstance().getSearchPlaylist(searchText);
 	}
 	
+	public int getSearchAccounts(String searchText) {
+		if(Database.getInstance().getSearchAccount(searchText) == false)
+		{
+			return 0;
+		}
+		else {
+			return 1; // found an account with that name
+		}
+	}
+	
 	
 	public ArrayList<Playlist> gettingPlaylists(String t){
 		return Database.getInstance().getPlaylist(t);
@@ -157,6 +167,9 @@ public class generalModel {
 		return Database.getInstance().getPrivatePlaylist(t);
 	}
 	
+//	public ArrayList<account> gettingListenersFollowing(String a){
+//		return Database.getInstance().getListenerFollowers(a);
+//	}
 	public ArrayList<Song> gettingFavoriteSong(String t)
 	{
 		return Database.getInstance().getFavoriteSong(t);

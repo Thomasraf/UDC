@@ -34,6 +34,7 @@ public class SearchResultView extends JFrame {
 	ArrayList<Song> searchSongs, userSongs;
 	String currentUser;
 	ArrayList<Playlist> searchPlaylist;
+	String searchListener,searchArtist;
 	private volatile static SearchResultView instance = null;
 	public static SearchResultView getInstance() {
         if (instance == null) {
@@ -595,13 +596,14 @@ public class SearchResultView extends JFrame {
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			
+			int searchingListenerAccount = 0;
 			searchSongs = generalModel.getInstance().getSearchSongs(searchingText);
 			searchPlaylist = generalModel.getInstance().getSearchPlaylist(searchingText);
+			searchingListenerAccount = generalModel.getInstance().getSearchAccounts(searchingText);
 			
 			DefaultListModel DLM1 = new DefaultListModel();
 			DefaultListModel DLM2 = new DefaultListModel();
-			DefaultListModel DLM3 = new DefaultListModel();
+			
 			
 			for(int a = 0; a < searchSongs.size(); a++)
 				DLM1.addElement(searchSongs.get(a).getSongName());
@@ -609,11 +611,17 @@ public class SearchResultView extends JFrame {
 			for(int b = 0; b < searchPlaylist.size();b++)
 				DLM2.addElement(searchPlaylist.get(b).getPlaylistName());
 			
-			DLM3.addElement(searchingText);
+			
 			
 			SongsList.setModel(DLM1);
 			listPlaylist.setModel(DLM2);
-			Followers_List.setModel(DLM3);
+			
+			if(searchingListenerAccount == 0) { //this is to see if there is a LISTENER with that username
+				DefaultListModel DLM3 = new DefaultListModel();
+				DLM3.addElement(searchingText);
+				Followers_List.setModel(DLM3);
+			}
+			
 		}
 	}
 	
