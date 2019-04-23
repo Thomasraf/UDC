@@ -38,7 +38,7 @@ public class AddSong extends JFrame {
 	private JTextField textFieldChosenFile;
 	private JTextField textFieldSongName;
 	private JLabel lblSongName, lblArtist;
-	private JComboBox yearComboBox;
+	private JComboBox yearComboBox, albumComboBox;
 	ArrayList<Song> userSongsMostPlayed, userSongs;
 	private int songctr = 1;
 	/**
@@ -86,10 +86,19 @@ public class AddSong extends JFrame {
 		lblArtist.setBounds(87, 137, 162, 20);
 		contentPane.add(lblArtist);
 		
-		textFieldAlbum = new JTextField();
-		textFieldAlbum.setColumns(10);
-		textFieldAlbum.setBounds(87, 164, 162, 20);
-		contentPane.add(textFieldAlbum);
+//		textFieldAlbum = new JTextField();
+//		textFieldAlbum.setColumns(10);
+//		textFieldAlbum.setBounds(87, 164, 162, 20);
+//		contentPane.add(textFieldAlbum);
+		albumComboBox =  new JComboBox();
+		albumComboBox.setBounds(87, 164, 162, 20);
+		for(String e: generalController.getInstance().getAlbumsOfUser(currentUser))
+		{
+			albumComboBox.addItem(e);
+		}
+		contentPane.add(albumComboBox);
+		
+		
 		
 		textFieldGenre = new JTextField();
 		textFieldGenre.setColumns(10);
@@ -164,7 +173,7 @@ public class AddSong extends JFrame {
 			 String username = currentUser;
 			 String songName = textFieldSongName.getText();
 			 String artistName = currentUser;
-			 String albumName = textFieldAlbum.getText();
+			 String albumName = (String)albumComboBox.getSelectedItem();
 			 String genre = textFieldGenre.getText();
 			 String year = (String) yearComboBox.getSelectedItem();
 			 String path = textFieldChosenFile.getText();

@@ -430,6 +430,32 @@ public class Database{
 		}
 	}
 	
+	
+	public ArrayList<String> getAlbumsOfUser(String username)
+	{
+		Connection cnt = getConnection(); 
+		
+		String query = "SELECT * FROM album WHERE username = '" + username + "'";
+		ArrayList<String> albums = new ArrayList<String>();
+		try {
+			//create prepared statement
+			PreparedStatement ps = cnt.prepareStatement(query);
+			
+			//get result and store in result set
+			ResultSet rs = ps.executeQuery();
+			if(rs.next())
+			{
+				albums.add(rs.getString("name"));
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		}
+		return albums;
+	}
+	
 	public void writeSongBLOB(int SongID, String path,String songName) {
 
 			
