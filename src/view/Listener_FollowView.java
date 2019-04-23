@@ -635,20 +635,6 @@ public class Listener_FollowView extends JFrame {
 		
 
 		btnFollow = new JButton("Follow");
-
-		btnFollow.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if(evenClick2) {
-				btnFollow.setText("FOLLOW");
-				evenClick = false;
-			}
-				else {
-					btnFollow.setText("UNFOLLOW");
-					evenClick2 = true;
-				}
-				}
-		});
 		btnFollow.setForeground(Color.WHITE);
 		btnFollow.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnFollow.setBackground(Color.BLACK);
