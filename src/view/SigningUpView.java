@@ -125,8 +125,7 @@ public class SigningUpView extends JFrame{
 			{
 				String username = UsernameText.getText();
 				String password = PasswordText.getText();
-				String type = comboBox.getName();
-				System.out.println(type);
+				String type = (String) comboBox.getSelectedItem();
 				signUp = new account(username,password); 
 
 
