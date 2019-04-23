@@ -43,6 +43,7 @@ public class SearchResultView extends JFrame {
 	}
 	JButton Profile;
 	String searchingText;
+	JList Followers_List;
 	
 	
 	/**
@@ -541,7 +542,7 @@ public class SearchResultView extends JFrame {
 		button_1.setBounds(224, 79, 164, 417);
 		Dashboard.add(button_1);
 		
-		JList Followers_List = new JList();
+		Followers_List = new JList();
 		Followers_List.setBounds(384, 79, 186, 417);
 		Dashboard.add(Followers_List);
 		
@@ -600,6 +601,7 @@ public class SearchResultView extends JFrame {
 			
 			DefaultListModel DLM1 = new DefaultListModel();
 			DefaultListModel DLM2 = new DefaultListModel();
+			DefaultListModel DLM3 = new DefaultListModel();
 			
 			for(int a = 0; a < searchSongs.size(); a++)
 				DLM1.addElement(searchSongs.get(a).getSongName());
@@ -607,8 +609,11 @@ public class SearchResultView extends JFrame {
 			for(int b = 0; b < searchPlaylist.size();b++)
 				DLM2.addElement(searchPlaylist.get(b).getPlaylistName());
 			
+			DLM3.addElement(searchingText);
+			
 			SongsList.setModel(DLM1);
 			listPlaylist.setModel(DLM2);
+			Followers_List.setModel(DLM3);
 		}
 	}
 	
