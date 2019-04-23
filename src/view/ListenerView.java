@@ -620,14 +620,14 @@ public class ListenerView extends JFrame {
 			publicPlaylistJList.setModel(DLM3);
 			
 			//============================================== Following Listener List
-//			userFollowers = generalModel.getInstance().gettingFollowersList(currentUser);
-//			
-//			DefaultListModel DLM4 = new DefaultListModel();
-//			
-//			for(int c = 0; c < userFollowers.size();c++)
-//				DLM4.addElement(userFollowers.get(c).getUsername());
-//			
-//			listernerFollowJList.setModel(DLM4);
+			userFollowers = generalModel.getInstance().gettingFollowersList(currentUser);
+			
+			DefaultListModel DLM4 = new DefaultListModel();
+			
+			for(int c = 0; c < userFollowers.size();c++)
+				DLM4.addElement(userFollowers.get(c).getUsername());
+			
+			listernerFollowJList.setModel(DLM4);
 				
 			
 			

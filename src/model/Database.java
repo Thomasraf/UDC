@@ -5,6 +5,7 @@ import javax.swing.JOptionPane;
 
 import controller.PlaylistBuilder;
 import controller.SongBuilder;
+import controller.accountBuilder;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -214,40 +215,7 @@ public class Database{
 		return unique;
 	}
 	
-	public boolean getSearchAccount(String accountName){ //Signing Up
-		String x,y;
-		boolean unique = false;
-		Connection cnt = getConnection();
-		
-		
-		String query2 = "SELECT * FROM udc.accounts WHERE username = ('"+accountName+"')";
-
-		//create string query
-		
-		try {
-			
-			PreparedStatement ps2 = getConnection().prepareStatement(query2);
-		
-			
-			ResultSet rs = ps2.executeQuery();
 	
-			if(rs.next()) { //User already exists
-				unique = false;
-			}
-			else {
-				unique = true;
-			}
-			
-			//close all the resources
-			
-			rs.close();
-			cnt.close();
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return unique;
-	}
 	
 	public boolean loggingAccount(account registeredAccount) { //Logging In
 		Connection cnt = getConnection(); 
@@ -687,6 +655,45 @@ public class Database{
 			
 		}
 	
+	public ArrayList<account> getSearchAccount(String searchText) {
+		boolean proceed = false;
+		//get getConnection() from db
+		Connection cnt = getConnection();
+		
+		String query = "SELECT * FROM udc.followinglistener WHERE Username =('"+searchText+"');";
+		//create string qu
+		
+		try {
+			//create prepared statement	
+			PreparedStatement ps = cnt.prepareStatement(query);
+			
+			//get result and store in result set
+			ResultSet rs = ps.executeQuery();
+			
+			ArrayList<account> a1 = new ArrayList<>();
+			//transform set into list
+			while(rs.next()) {
+				 account searchAccount = new accountBuilder()
+						 .setUsername(rs.getString("Username"))
+						 .setPassword(rs.getString("Password"))
+						 .getAccount();
+				 a1.add(searchAccount);
+			}
+			
+			//close all the resources
+			ps.close();
+			rs.close();
+			cnt.close();
+			
+			return a1;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null; 
+		
+	}
+	
 	public void addSearchSongs(String songName,String username) {
 		
 		//get getConnection() from db
@@ -969,7 +976,42 @@ public ArrayList<Playlist> getSearchPlaylist(String searchText) {
 		return null; 
 	}
 	
-	
+//	public ArrayList<account> getListenerFollowers(String username){
+//		//get getConnection() from db
+//		Connection cnt = getConnection();
+//		String y = "0";
+//		String query = "SELECT * FROM udc.followinglistener WHERE username = ('"+username+"');";
+//		//create string query
+//		
+//		try {
+//			//create prepared statement	
+//			PreparedStatement ps = cnt.prepareStatement(query);
+//			
+//			//get result and store in result set
+//			ResultSet rs = ps.executeQuery();
+//			
+//			ArrayList<account> pl = new ArrayList<>();
+//			//transform set into list
+//			while(rs.next()) {
+//				 Playlist newPlaylist = new PlaylistBuilder()
+//						 .setPlaylistName(rs.getString("playlistName"))
+//						 .setUsername(rs.getString("username"))
+//						 .getPlaylist();
+//				 pl.add(newPlaylist);
+//			}
+//			
+//			//close all the resources
+//			ps.close();
+//			rs.close();
+//			cnt.close();
+//			
+//			return pl;
+//
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		return null; 
+//	}
 	
 	public ArrayList<Song> getFavoriteSong(String username){
 		//get getConnection() from db
