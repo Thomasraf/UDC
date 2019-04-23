@@ -181,13 +181,22 @@ public class Database{
 	public boolean addingAccount(account newAccount,String type){ //Signing Up
 		String x,y;
 		boolean unique = false;
+		boolean artist = false;
+		boolean whichType = false;
 		Connection cnt = getConnection();
 		x = newAccount.getUsername();
 		y = newAccount.getPassword();
-		
+		 //false being Listener
+		 //true being Artist
+		if(type == "Listener") {
+			whichType = false;
+		}
+		else if(type == "Artist"){
+			whichType = true;
+		}
 		
 		String query2 = "SELECT * FROM udc.accounts WHERE username =('"+newAccount.getUsername()+"') AND password = ('"+newAccount.getPassword()+"')";
-
+		
 		//create string query
 		
 		try {
