@@ -23,7 +23,6 @@ import java.awt.SystemColor;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JList;
-import javax.swing.JOptionPane;
 
 public class SearchResultView extends JFrame {
 
@@ -31,7 +30,7 @@ public class SearchResultView extends JFrame {
 	boolean evenClick = false;
 	private JButton Artist_Dashboard;
 	JButton Refreshbtn,btnAddSong,btnAddPlaylist,btnGoToListener;
-	JList SongsList,listPlaylist,Followers_List;
+	JList SongsList,listPlaylist;
 	ArrayList<Song> searchSongs, userSongs;
 	String currentUser;
 	ArrayList<Playlist> searchPlaylist;
@@ -541,7 +540,7 @@ public class SearchResultView extends JFrame {
 		button_1.setBounds(224, 79, 164, 417);
 		Dashboard.add(button_1);
 		
-		Followers_List = new JList();
+		JList Followers_List = new JList();
 		Followers_List.setBounds(384, 79, 186, 417);
 		Dashboard.add(Followers_List);
 		
@@ -593,15 +592,9 @@ public class SearchResultView extends JFrame {
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			boolean x = generalModel.getInstance().getSearchAccount(searchingText);
-			if(x == true) {
-				DefaultListModel DLM3 = new DefaultListModel();
-				DLM3.addElement(searchingText);
-				Followers_List.setModel(DLM3);
-			}
+			
 			searchSongs = generalModel.getInstance().getSearchSongs(searchingText);
 			searchPlaylist = generalModel.getInstance().getSearchPlaylist(searchingText);
-			
 			
 			DefaultListModel DLM1 = new DefaultListModel();
 			DefaultListModel DLM2 = new DefaultListModel();
@@ -621,9 +614,9 @@ public class SearchResultView extends JFrame {
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-				Listener_FollowView.getInstance().setText(searchingText);
-				Listener_FollowView.getInstance().setUsername(currentUser);
-				Listener_FollowView.getInstance().setVisible(true);
+			Listener_FollowView.getInstance().setText(searchingText);
+			Listener_FollowView.getInstance().setUsername(currentUser);
+			Listener_FollowView.getInstance().setVisible(true);
 		}
 	}
 	

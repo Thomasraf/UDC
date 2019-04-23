@@ -78,10 +78,10 @@ public class AddSong extends JFrame {
 		lblAlbum.setBounds(29, 167, 46, 14);
 		contentPane.add(lblAlbum);
 		
-		textFieldArtistName = new JTextField();
-		textFieldArtistName.setBounds(87, 137, 162, 20);
-		contentPane.add(textFieldArtistName);
-		textFieldArtistName.setColumns(10);
+//		textFieldArtistName = new JTextField();
+//		textFieldArtistName.setBounds(87, 137, 162, 20);
+//		contentPane.add(textFieldArtistName);
+//		textFieldArtistName.setColumns(10);
 		lblArtist = new JLabel(currentUser);
 		lblArtist.setBounds(87, 137, 162, 20);
 		contentPane.add(lblArtist);
@@ -161,9 +161,9 @@ public class AddSong extends JFrame {
 
 
 			 int songID = 0;
-			 String username = HomeView.getInstance().currentUser;
+			 String username = currentUser;
 			 String songName = textFieldSongName.getText();
-			 String artistName = textFieldArtistName.getText();
+			 String artistName = currentUser;
 			 String albumName = textFieldAlbum.getText();
 			 String genre = textFieldGenre.getText();
 			 String year = (String) yearComboBox.getSelectedItem();
@@ -192,8 +192,8 @@ public class AddSong extends JFrame {
 			 sList.addSong(addedSong);
 			 int index = sList.getIndex(addedSong);
 			 
-			 generalModel.getInstance().getSongData(addedSong, addedSong.getSongName());
-			 
+//			 generalModel.getInstance().getSongData(addedSong, addedSong.getSongName());
+			 generalController.getInstance().addSong(addedSong);
 			 JOptionPane.showMessageDialog(null,"Added " + songName + ".mp3");
 			 closingWindow();
 			 //==========================================================   FOR LIBRARY STUFF
@@ -214,12 +214,12 @@ public class AddSong extends JFrame {
 				 DLMYear.addElement(userSongs.get(x).getYear());
 				 DLMFavorite.addElement(userSongs.get(x).getFavorite());
 			 }
-			 LibraryView.getInstance().Title_list.setModel(DLMTitle);
-			 LibraryView.getInstance().Artist_list.setModel(DLMArtist);
-			 LibraryView.getInstance().Genre_List.setModel(DLMGenre);
-			 LibraryView.getInstance().Album_List.setModel(DLMAlbum);
-			 LibraryView.getInstance().Year_List.setModel(DLMYear);
-			 LibraryView.getInstance().Fave_List.setModel(DLMFavorite);
+//			 LibraryView.getInstance().Title_list.setModel(DLMTitle);
+//			 LibraryView.getInstance().Artist_list.setModel(DLMArtist);
+//			 LibraryView.getInstance().Genre_List.setModel(DLMGenre);
+//			 LibraryView.getInstance().Album_List.setModel(DLMAlbum);
+//			 LibraryView.getInstance().Year_List.setModel(DLMYear);
+//			 LibraryView.getInstance().Fave_List.setModel(DLMFavorite);
 			 
 			 //==========================================================  FOR MOST PLAYED STUFF
 
@@ -232,7 +232,7 @@ public class AddSong extends JFrame {
 				 DLMMostPlayed.addElement(userSongsMostPlayed.get(x).getSongName());
 			 
 			 HomeView.getInstance().MP_List.setModel(DLMMostPlayed);
-			 LibraryView.getInstance().MP_List.setModel(DLMMostPlayed);
+//			 LibraryView.getInstance().MP_List.setModel(DLMMostPlayed);
 			 //==========================================================
 			 
 

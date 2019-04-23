@@ -1,5 +1,6 @@
 package controller;
 import model.generalModel;
+import model.Album;
 import model.ArtistPlaylist;
 import model.Playlist;
 import model.Song;
@@ -15,9 +16,9 @@ public class generalController {
 		return instance;
 	}
 	
-	public int gettingAccountData(String username, String password,String type) { //SINGING UP
+	public int gettingAccountData(String username, String password,String path) { //SINGING UP
 		account newAccount = new account(username, password);
-		 return generalModel.getInstance().getAccountData(newAccount,type);
+		 return generalModel.getInstance().getAccountData(newAccount,path);
 	}
 	
 	public void gettingRegisteredAccountData(String registeredUsername,String registeredPassword) { //LOGGING IN
@@ -29,7 +30,7 @@ public class generalController {
 	
 	public void gettingRegisteredArtistAccountData(String registeredUsername,String registeredPassword) { //LOGGING IN
 		account registeredAccount = new account(registeredUsername, registeredPassword);
-		//generalModel.getInstance().checkingArtistAccountData(registeredAccount);
+		generalModel.getInstance().checkingArtistAccountData(registeredAccount);
 	}
 	public void gettingUserPlaylist(String username, String playlistName, String favorite,String privacy,String path,String description)
 	{
@@ -42,7 +43,15 @@ public class generalController {
 		generalModel.getInstance().addArtistPlaylist(ap);
 	}
 
-
+	public void addAlbum(Album a)
+	{
+		generalModel.getInstance().addAlbum(a);
+	}
+	
+	public void addSong(Song s)
+	{
+		generalModel.getInstance().addSong(s);
+	}
 /*	
 	public int getIDWithUsername(String username)
 

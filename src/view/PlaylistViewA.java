@@ -15,8 +15,6 @@ import javax.swing.SwingConstants;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Queue;
-
 import javax.swing.JTextField;
 import java.awt.SystemColor;
 import java.awt.event.ActionListener;
@@ -178,7 +176,7 @@ public class PlaylistViewA extends JFrame {
 		
 		JButton btnLogout = new JButton("");
 		btnLogout.setBounds(10, 11, 39, 39);
-		btnLogout.setIcon(new ImageIcon(HomeView.class.getResource("/images2/logout.png")));
+		btnLogout.setIcon(new ImageIcon(HomeViewA.class.getResource("/images2/logout.png")));
 		btnLogout.setBorder(null);
 		btnLogout.setBackground(new Color(30, 58, 42));
 		TopBar.add(btnLogout);
@@ -228,7 +226,7 @@ public class PlaylistViewA extends JFrame {
 		TopBar.add(Refreshbtn);
 		
 		JButton verified = new JButton("");
-		verified.setIcon(new ImageIcon(Queue.class.getResource("/images2/correct (4).png")));
+		verified.setIcon(new ImageIcon(QueueViewA.class.getResource("/images2/correct (4).png")));
 		verified.setEnabled(false);
 		verified.setBorder(null);
 		verified.setBackground(new Color(30, 58, 42));

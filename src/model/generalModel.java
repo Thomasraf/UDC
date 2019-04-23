@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 
 import controller.SongBuilder;
+import view.ArtistLoggingInView;
 import view.LoggingInView;
 import view.SigningUpView;
 //import view.ArtistLoggingInView;
@@ -36,12 +37,14 @@ public class generalModel {
 		Database.getInstance().writePlaylistBLOB(p.getPlaylistName(),p.getPath(),p.getDescription());
 	}
 	
-	public int getAccountData(account x, String type) { //SIGNING UP
-		if(Database.getInstance().addingAccount(x,type) == false) {
-			//Database.getInstance().writeDisplayPictureBLOB(x.getUsername(),path);
+	public int getAccountData(account x, String path) { //SIGNING UP
+		if(Database.getInstance().addingAccount(x) == false) {
+			SigningUpView.getInstance().signingSuccessful();
+			Database.getInstance().writeDisplayPictureBLOB(x.getUsername(),path);
 			return 1;
 		}
 		else{
+			SigningUpView.getInstance().signingFailed();
 			return 0;
 		}
 	}
@@ -56,15 +59,15 @@ public class generalModel {
 	}
 	
 
-//	public void checkingArtistAccountData(account w) { //LOGGING IN
-//		if(Database.getInstance().loggingArtistAccount(w) == true) {
-//			ArtistLoggingInView.getInstance().entranceAllowed();
-//		}
-//		else {
-//			ArtistLoggingInView.getInstance().entranceDenied();
-//		}
-//	}
-//	
+	public void checkingArtistAccountData(account w) { //LOGGING IN
+		if(Database.getInstance().loggingArtistAccount(w) == true) {
+			ArtistLoggingInView.getInstance().entranceAllowed();
+		}
+		else {
+			ArtistLoggingInView.getInstance().entranceDenied();
+		}
+	}
+	
 
 
 
@@ -76,6 +79,16 @@ public class generalModel {
 	public void addArtistPlaylist(ArtistPlaylist ap)
 	{
 		Database.getInstance().addArtistPlaylist(ap);
+	}
+	
+	public void addAlbum(Album a)
+	{
+		Database.getInstance().addAlbum(a);
+	}
+	
+	public void addSong(Song s)
+	{
+		Database.getInstance().addSong(s);
 	}
 	
 	public ArrayList<Song> gettingSongs(String t) {
@@ -96,15 +109,6 @@ public class generalModel {
 	
 	public ArrayList<Playlist> getSearchPlaylist(String searchText){
 		return Database.getInstance().getSearchPlaylist(searchText);
-	}
-	
-	public boolean getSearchAccount(String searchText) {
-		if(Database.getInstance().getSearchAccount(searchText) == true) {
-			return true;
-		}
-		else {
-			return false;
-		}
 	}
 	
 	

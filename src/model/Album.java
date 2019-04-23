@@ -6,18 +6,23 @@ public class Album {
 	private static ArrayList<Song> SongInAlbum = new ArrayList<Song>();
 	String albumName;
 	String username;
+	String path;
 	
-	public Album(String albumName, String username) {
-		super();
+	public Album(String albumName, String username, String filename) {
 		this.albumName = albumName;
 		this.username = username;
+		this.path = filename;
 	}
 	
 	public String getUsername() {
 		return username;
 	}
 
-
+	public String getPath()
+	{
+		return path;
+	}
+	
 	public static ArrayList<Song> getSongInAlbum() {
 		return SongInAlbum;
 	}
