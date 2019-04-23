@@ -86,12 +86,22 @@ public class generalModel {
 		return Database.getInstance().getSearchSongs(searchText);
 	}
 	
+	
+	
 	public void addSearchSongs(String songName,String username){
 		Database.getInstance().addSearchSongs(songName,username);
 	}
 	
 	public void addSearchPlaylists(String playlistName,String username){
 		Database.getInstance().addSearchPlaylists(playlistName,username);
+	}
+	
+	public void addListenerSongs(String songName,String username){
+		Database.getInstance().addListenerSong(songName,username);
+	}
+	
+	public void addListenerPlaylists(String playlistName,String username){
+		Database.getInstance().addListenerPlaylist(playlistName,username);
 	}
 	
 	public ArrayList<Playlist> getSearchPlaylist(String searchText){

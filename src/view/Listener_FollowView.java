@@ -654,6 +654,7 @@ public class Listener_FollowView extends JFrame {
 		btnFollow.setBackground(Color.BLACK);
 		btnFollow.setBounds(603, 126, 136, 35);
 		Dashboard.add(btnFollow);
+		btnFollow.addActionListener(new btn_Follow());
 		
 
 		playlistJList = new JList();
@@ -711,11 +712,21 @@ public class Listener_FollowView extends JFrame {
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			
+			String songName = userSongs.get(songJList.getSelectedIndex()).getSongName();
+			generalModel.getInstance().addListenerPlaylists(songName,currentUser);
 		}
 	}
 	
 	class btn_AddSong implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			String playlistName = userPlaylists.get(playlistJList.getSelectedIndex()).getPlaylistName();
+			generalModel.getInstance().addListenerSongs(playlistName,currentUser);
+		}
+	}
+	
+	class btn_Follow implements ActionListener
 	{
 		public void actionPerformed(ActionEvent e)
 		{
