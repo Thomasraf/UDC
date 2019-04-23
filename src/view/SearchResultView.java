@@ -41,6 +41,7 @@ public class SearchResultView extends JFrame {
         }
 		return instance;
 	}
+	JButton Profile;
 	String searchingText;
 	
 	
@@ -196,7 +197,7 @@ public class SearchResultView extends JFrame {
 		TopBar.add(ProfilePic);
 		ProfilePic.setBackground(new Color(170, 187, 204));
 		
-		JButton Profile = new JButton("Profile Name");
+		Profile = new JButton("Profile Name");
 		Profile.setBackground(new Color(30,58,42));
 		Profile.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		Profile.setForeground(Color.WHITE);
@@ -642,5 +643,6 @@ public class SearchResultView extends JFrame {
 	
 	public void setUsername(String currentUser) {
 		this.currentUser = currentUser;
+		Profile.setText(currentUser);
 	}
 }

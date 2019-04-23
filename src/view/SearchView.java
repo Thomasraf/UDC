@@ -81,6 +81,7 @@ public class SearchView extends JFrame {
 		 public void actionPerformed(ActionEvent e)
 		 {
 			 searchText = textFieldSearchParameter.getText();
+			 System.out.println(currentUser);
 			 SearchResultView.getInstance().setText(searchText);
 			 SearchResultView.getInstance().setUsername(currentUser);
 			 SearchResultView.getInstance().setVisible(true);

@@ -235,11 +235,12 @@ public class HomeView extends JFrame {
 		SearchBtn.setBorder(null);
 		TopBar.add(SearchBtn);
 		
-		JButton ProfilePic = new JButton("");
+		ProfilePic = new JButton("");
 		ProfilePic.setIcon(new ImageIcon(HomeView.class.getResource("/images2/user-avatar-main-picture.png")));
 		ProfilePic.setBounds(478, 10, 40, 40);
 		TopBar.add(ProfilePic);
 		ProfilePic.setBackground(new Color(170, 187, 204));
+		ProfilePic.addActionListener(new btn_ProfilePic());
 		
 		 Profile = new JButton("Profile Name");
 		Profile.setBackground(new Color(30,58,42));
@@ -596,6 +597,7 @@ public class HomeView extends JFrame {
 	{
 		public void actionPerformed(ActionEvent e)
 		{
+			SearchView.getInstance().setUsername(currentUser);
 			SearchView.getInstance().setVisible(true);
 		}
 	}
@@ -700,6 +702,15 @@ public class HomeView extends JFrame {
 		 {
 			mp3.skipBackward();
 			
+		 }
+	 }
+	 
+	 class btn_ProfilePic implements ActionListener
+	 {
+		 public void actionPerformed(ActionEvent e)
+		 {
+			 ListenerView.getInstance().getUsername(currentUser);
+			 ListenerView.getInstance().setVisible(true);
 		 }
 	 }
 	 
