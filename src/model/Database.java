@@ -674,8 +674,7 @@ public class Database{
 			//transform set into list
 			while(rs.next()) {
 				 account searchAccount = new accountBuilder()
-						 .setUsername(rs.getString("Username"))
-						 .setPassword(rs.getString("Password"))
+						 .setUsername(rs.getString("Listener_Name"))
 						 .getAccount();
 				 a1.add(searchAccount);
 			}
@@ -686,6 +685,44 @@ public class Database{
 			cnt.close();
 			
 			return a1;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null; 
+		
+	}
+	
+	public ArrayList<account> getSearchArtistAccount(String searchText) {
+		boolean proceed = false;
+		//get getConnection() from db
+		Connection cnt = getConnection();
+		
+		String query = "SELECT * FROM udc.followinglistener WHERE Username =('"+searchText+"');";
+		//create string qu
+		
+		try {
+			//create prepared statement	
+			PreparedStatement ps = cnt.prepareStatement(query);
+			
+			//get result and store in result set
+			ResultSet rs = ps.executeQuery();
+			
+			ArrayList<account> a2 = new ArrayList<>();
+			//transform set into list
+			while(rs.next()) {
+				 account searchAccount = new accountBuilder()
+						 .setUsername(rs.getString("Artist_Name"))
+						 .getAccount();
+				 a2.add(searchAccount);
+			}
+			
+			//close all the resources
+			ps.close();
+			rs.close();
+			cnt.close();
+			
+			return a2;
 
 		} catch (SQLException e) {
 			e.printStackTrace();

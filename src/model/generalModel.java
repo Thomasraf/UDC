@@ -127,6 +127,10 @@ public class generalModel {
 		return Database.getInstance().getSearchAccount(searchText);
 	}
 	
+	public ArrayList<account> gettingFollowersArtistList(String searchText){
+		return Database.getInstance().getSearchArtistAccount(searchText);
+	}
+	
 	
 	public ArrayList<Playlist> gettingPlaylists(String t){
 		return Database.getInstance().getPlaylist(t);
