@@ -123,14 +123,12 @@ public class generalModel {
 		return Database.getInstance().getSearchPlaylist(searchText);
 	}
 	
-	public int getSearchAccounts(String searchText) {
-		if(Database.getInstance().getSearchAccount(searchText) == false)
-		{
-			return 0;
-		}
-		else {
-			return 1; // found an account with that name
-		}
+	public ArrayList<account> gettingFollowersList(String searchText) {
+		return Database.getInstance().getSearchAccount(searchText);
+	}
+	
+	public ArrayList<account> gettingFollowersArtistList(String searchText){
+		return Database.getInstance().getSearchArtistAccount(searchText);
 	}
 	
 	

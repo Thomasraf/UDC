@@ -46,7 +46,7 @@ public class ListenerView extends JFrame {
 	JList songJlist,playlistJList,FavoriteplaylistJList,FavoritesongJList, mostPlayedList,listernerFollowJList;
 	JList publicPlaylistJList,myPlaylistJList,myPlaylistJList2;
 	boolean songChanged;
-	ArrayList<account> userFollowers;
+	ArrayList<account> userFollowers, userArtists;
 	
 	public static ListenerView getInstance() {
         if (instance == null) {
@@ -532,51 +532,6 @@ public class ListenerView extends JFrame {
 		myPlaylist_Dashboard.setBounds(213, 170, 206, 30);
 		Dashboard.add(myPlaylist_Dashboard);
 		
-		JList AFollow1 = new JList();
-		AFollow1.setBackground(new Color(254, 254, 250));
-		AFollow1.setBounds(580, 199, 164, 30);
-		Dashboard.add(AFollow1);
-		
-		JList AFollow2 = new JList();
-		AFollow2.setBackground(new Color(254, 254, 250));
-		AFollow2.setBounds(580, 229, 164, 30);
-		Dashboard.add(AFollow2);
-		
-		JList AFollow3 = new JList();
-		AFollow3.setBackground(new Color(254, 254, 250));
-		AFollow3.setBounds(580, 262, 164, 30);
-		Dashboard.add(AFollow3);
-		
-		JList AFollow4 = new JList();
-		AFollow4.setBackground(new Color(254, 254, 250));
-		AFollow4.setBounds(580, 292, 164, 30);
-		Dashboard.add(AFollow4);
-		
-		JList AFollow5 = new JList();
-		AFollow5.setBackground(new Color(254, 254, 250));
-		AFollow5.setBounds(580, 323, 164, 30);
-		Dashboard.add(AFollow5);
-		
-		JList AFollow6 = new JList();
-		AFollow6.setBackground(new Color(254, 254, 250));
-		AFollow6.setBounds(580, 353, 164, 30);
-		Dashboard.add(AFollow6);
-		
-		JList AFollow7 = new JList();
-		AFollow7.setBackground(new Color(254, 254, 250));
-		AFollow7.setBounds(580, 386, 164, 30);
-		Dashboard.add(AFollow7);
-		
-		JList AFollow8 = new JList();
-		AFollow8.setBackground(new Color(254, 254, 250));
-		AFollow8.setBounds(580, 416, 164, 30);
-		Dashboard.add(AFollow8);
-		
-		JList AFollow9 = new JList();
-		AFollow9.setBackground(new Color(254, 254, 250));
-		AFollow9.setBounds(580, 444, 164, 30);
-		Dashboard.add(AFollow9);
-		
 		publicPlaylistJList = new JList();
 		publicPlaylistJList.setBounds(10, 211, 206, 274);
 		Dashboard.add(publicPlaylistJList);
@@ -585,13 +540,17 @@ public class ListenerView extends JFrame {
 		myPlaylistJList.setBounds(223, 211, 196, 274);
 		Dashboard.add(myPlaylistJList);
 		
-		JList artistfollowJList = new JList();
-		artistfollowJList.setBounds(580, 199, 164, 286);
-		Dashboard.add(artistfollowJList);
+		JList artistFollowJList = new JList();
+		artistFollowJList.setBounds(580, 199, 164, 286);
+		Dashboard.add(artistFollowJList);
 		
 		listernerFollowJList = new JList();
 		listernerFollowJList.setBounds(428, 211, 149, 274);
 		Dashboard.add(listernerFollowJList);
+		
+		JList list_1 = new JList();
+		list_1.setBounds(580, 211, 149, 274);
+		Dashboard.add(list_1);
 	}
 	
 	class btn_Refresh implements ActionListener
@@ -620,17 +579,26 @@ public class ListenerView extends JFrame {
 			publicPlaylistJList.setModel(DLM3);
 			
 			//============================================== Following Listener List
-//			userFollowers = generalModel.getInstance().gettingFollowersList(currentUser);
-//			
-//			DefaultListModel DLM4 = new DefaultListModel();
-//			
-//			for(int c = 0; c < userFollowers.size();c++)
-//				DLM4.addElement(userFollowers.get(c).getUsername());
-//			
-//			listernerFollowJList.setModel(DLM4);
+			
+			userFollowers = generalModel.getInstance().gettingFollowersList(currentUser);
+			
+			DefaultListModel DLM4 = new DefaultListModel();
+			
+			for(int c = 0; c < userFollowers.size();c++)
+				DLM4.addElement(userFollowers.get(c).getUsername());
+			
+			listernerFollowJList.setModel(DLM4);
 				
 			
+			//============================================== Following Artist List
+			userArtists = generalModel.getInstance().gettingFollowersArtistList(currentUser);
 			
+			DefaultListModel DLM5 = new DefaultListModel();
+			
+			for(int c = 0; c < userFollowers.size();c++)
+				DLM5.addElement(userFollowers.get(c).getUsername());
+			
+			listernerFollowJList.setModel(DLM5);
 			
 //			userPlaylistFavorites = generalModel.getInstance().gettingFavoritePlaylist(currentUser);
 //			
