@@ -59,7 +59,7 @@ public class Database{
 		String query4 = "CREATE TABLE IF NOT EXISTS user_playlists(PlaylistID int NOT NULL AUTO_INCREMENT PRIMARY KEY,Username varchar(255), PlaylistName varchar(255), Favorite varchar(255), Privacy varchar(255));";
 		String query5 = "CREATE TABLE IF NOT EXISTS songData(SongID int NOT NULL AUTO_INCREMENT PRIMARY KEY, data LONGBLOB, SongName varchar(255));";
 		String query6 = "CREATE TABLE IF NOT EXISTS songs_in_playlist(PlaylistID int PRIMARY KEY, PlaylistName varchar(255),SongID int(11), SongName varchar(255));";
-		String query7 = "CREATE TABLE IF NOT EXISTS playlistData(PlaylistID int NOT NULL AUTO_INCREMENT PRIMARY KEY, picture BLOB,PlaylistName varchar(255), description varchar(255));";
+		String query7 = "CREATE TABLE IF NOT EXISTS playlistData(PlaylistID int NOT NULL AUTO_INCREMENT PRIMARY KEY, PlaylistName varchar(255), description varchar(255));";
 		
 
 		String query9 = "CREATE TABLE IF NOT EXISTS album(albumid int NOT NULL AUTO_INCREMENT PRIMARY KEY, name varchar(255), username varchar(255), albumcover LONGBLOB);";
@@ -327,7 +327,7 @@ public class Database{
 		boolean loggedIn = false;
 		
 //		String query = "INSERT INTO artist_playlist (playlistid, name, userid, description, picture) VALUES (?,?,?,?,?)";
-		String query = "INSERT INTO playlistdata (picture, PlaylistName, description) VALUES (?,?,?)";
+		String query = "INSERT INTO playlistdata (PlaylistName, description) VALUES (?,?,?)";
 		String query2 = "INSERT INTO user_playlists (Username, PlaylistName, Favorite, Privacy) VALUES (?,?,?,?)";
 		String query3 = "INSERT INTO playlists (PlaylistName, Username) VALUES (?,?)";
 		
@@ -335,11 +335,9 @@ public class Database{
 			//create prepared statement
 			//insert to playlistdata
 			PreparedStatement ps = cnt.prepareStatement(query);
-			File image = new File(pl.getPath());
-			FileInputStream fis = new FileInputStream(image);
-			ps.setBinaryStream(1, (InputStream)fis);
-			ps.setString(2, pl.getName());
-			ps.setString(3, pl.getDescription());
+			
+			ps.setString(1, pl.getName());
+			ps.setString(2, pl.getDescription());
 			ps.execute();
 			
 			//insert to user_playlists
@@ -362,7 +360,7 @@ public class Database{
 //			e.printStackTrace();
 //			
 //		}
-		catch (SQLException | FileNotFoundException e) {
+		catch (SQLException e) {
 			e.printStackTrace();
 			
 		}
@@ -463,30 +461,23 @@ public class Database{
 			
 		}
 	
-	public void writePlaylistBLOB(String playlistName, String path, String description) {
+	public void writePlaylistData(String playlistName,String description) {
 		
 		Connection cnt = getConnection();
 		FileInputStream input = null;
 		PreparedStatement myStatement = null;
 		
 		
-		String query = "INSERT INTO playlistData VALUES (?,?,?,?)";
+		String query = "INSERT INTO playlistData VALUES (?,?,?)";
 		int x = 0;
 		//create string qu
 		
 		try {
 			myStatement = cnt.prepareStatement(query);
 			
-			File thePlaylistPicture = new File(path); 
-			input = new FileInputStream(thePlaylistPicture);
 			myStatement.setInt(1, x);
-			myStatement.setBinaryStream(2, input);
-			myStatement.setString(3, playlistName);
-			myStatement.setString(4, description);
-			
-			System.out.println("Reading the jpeg file: " + thePlaylistPicture.getAbsolutePath());
-			System.out.println("Storing Playlist picture into Database " + thePlaylistPicture);
-			System.out.println(query);
+			myStatement.setString(2, playlistName);
+			myStatement.setString(3, description);
 			
 			myStatement.execute();
 			

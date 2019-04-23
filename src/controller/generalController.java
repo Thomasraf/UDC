@@ -32,9 +32,9 @@ public class generalController {
 		account registeredAccount = new account(registeredUsername, registeredPassword);
 		generalModel.getInstance().checkingArtistAccountData(registeredAccount);
 	}
-	public void gettingUserPlaylist(String username, String playlistName, String favorite,String privacy,String path,String description)
+	public void gettingUserPlaylist(String username, String playlistName, String favorite,String privacy,String description)
 	{
-		Playlist p = new Playlist(playlistName, username, favorite,privacy,path,description);
+		Playlist p = new Playlist(playlistName, username, favorite,privacy,description);
 		generalModel.getInstance().getUserPlaylistData(p);
 	}
 	
