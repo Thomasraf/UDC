@@ -40,7 +40,7 @@ public class Listener_FollowView extends JFrame {
 	ArrayList<Playlist> userPlaylists;
 	JButton btnFollow,Refreshbtn,btnAddSong,btnAddPlaylist;
 	String searchingText,currentUser;
-
+	JButton ProfileName_Dashboard;
 	
 	private volatile static Listener_FollowView instance = null;
 	public static Listener_FollowView getInstance() {
@@ -512,7 +512,7 @@ public class Listener_FollowView extends JFrame {
 		lblProfileDetails.setBounds(184, 82, 377, 55);
 		Dashboard.add(lblProfileDetails);
 		
-		JButton ProfileName_Dashboard = new JButton("Profile Name");
+		ProfileName_Dashboard = new JButton("Profile Name");
 		ProfileName_Dashboard.setHorizontalAlignment(SwingConstants.LEFT);
 		ProfileName_Dashboard.setForeground(Color.BLACK);
 		ProfileName_Dashboard.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -635,20 +635,6 @@ public class Listener_FollowView extends JFrame {
 		
 
 		btnFollow = new JButton("Follow");
-
-		btnFollow.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if(evenClick2) {
-				btnFollow.setText("FOLLOW");
-				evenClick = false;
-			}
-				else {
-					btnFollow.setText("UNFOLLOW");
-					evenClick2 = true;
-				}
-				}
-		});
 		btnFollow.setForeground(Color.WHITE);
 		btnFollow.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnFollow.setBackground(Color.BLACK);
@@ -712,8 +698,9 @@ public class Listener_FollowView extends JFrame {
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			String songName = userSongs.get(songJList.getSelectedIndex()).getSongName();
-			generalModel.getInstance().addListenerPlaylists(songName,currentUser);
+			
+			String playlistName = userPlaylists.get(playlistJList.getSelectedIndex()).getPlaylistName();
+			generalModel.getInstance().addListenerPlaylists(playlistName,currentUser);
 		}
 	}
 	
@@ -721,8 +708,8 @@ public class Listener_FollowView extends JFrame {
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			String playlistName = userPlaylists.get(playlistJList.getSelectedIndex()).getPlaylistName();
-			generalModel.getInstance().addListenerSongs(playlistName,currentUser);
+			String songName = userSongs.get(songJList.getSelectedIndex()).getSongName();
+			generalModel.getInstance().addListenerSongs(songName,currentUser);
 		}
 	}
 	
@@ -730,15 +717,16 @@ public class Listener_FollowView extends JFrame {
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			
+			generalModel.getInstance().addListenerFollow(searchingText,currentUser);
 		}
 	}
 	public void setText(String searchText) {
 		this.searchingText = searchText;
+		ProfileName_Dashboard.setText(searchingText);
 	}
 	
 	public void setUsername(String username) {
 		this.currentUser = username;
-
+		
 	}
 }
