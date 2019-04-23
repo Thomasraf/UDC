@@ -716,9 +716,9 @@ public class Database{
 			//get getConnection() from db
 			Connection cnt = getConnection();
 			int x = 0;
-			int y = 0;
+			String y = "0";
 			String z = "0";
-			String query = "INSERT INTO udc.user_playlists (Username,Playlist,Favorite,Privacy) SELECT ('"+username+"'),PlaylistName,('"+x+"'),('"+y+"'), FROM udc.playlists WHERE PlaylistName = ('"+playlistName+"') AND Privacy = ('"+z+"');";
+			String query = "INSERT INTO udc.user_playlists (Username,PlaylistName,Favorite,Privacy) SELECT ('"+username+"'),PlaylistName,('"+x+"'),('"+y+"') FROM udc.user_playlists WHERE PlaylistName = ('"+playlistName+"') AND Privacy = ('"+z+"');";
 			
 			try {
 				//create prepared statement	
