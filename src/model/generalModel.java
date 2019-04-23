@@ -115,6 +115,10 @@ public class generalModel {
 		Database.getInstance().addListenerPlaylist(playlistName,username);
 	}
 	
+	public void addListenerFollow(String listenerName,String username) {
+		Database.getInstance().addListenerFollow(listenerName,username);
+	}
+	
 	public ArrayList<Playlist> getSearchPlaylist(String searchText){
 		return Database.getInstance().getSearchPlaylist(searchText);
 	}

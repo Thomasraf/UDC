@@ -731,15 +731,16 @@ public class Listener_FollowView extends JFrame {
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			
+			generalModel.getInstance().addListenerFollow(searchingText,currentUser);
 		}
 	}
 	public void setText(String searchText) {
 		this.searchingText = searchText;
+		ProfileName_Dashboard.setText(searchingText);
 	}
 	
 	public void setUsername(String username) {
 		this.currentUser = username;
-		ProfileName_Dashboard.setText(searchingText);
+		
 	}
 }

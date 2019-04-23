@@ -731,6 +731,35 @@ public class Database{
 			
 		}
 	
+	public void addListenerFollow(String listenerName,String username) {
+		
+		//get getConnection() from db
+		Connection cnt = getConnection();
+		int x = 0;
+		String y = "0";
+		String z = "0";
+		String query = "insert into udc.followinglistener values ('"+username+"','"+listenerName+"')";
+		
+		try {
+			//create prepared statement	
+			PreparedStatement ps = cnt.prepareStatement(query);
+			ps.execute();
+			//get result and store in result set
+			
+			
+			//close all the resources
+			ps.close();
+			cnt.close();
+			
+		
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		//return null; 
+		
+	}
+	
 	public void addListenerPlaylist(String playlistName,String username) {
 		
 		//get getConnection() from db
