@@ -96,7 +96,9 @@
 //		 	 }
 //		 	 
 //		 	 
-//		 		//System.out.println(generalModel.getInstance().getUserPlaylist(currUser).get(comboBoxPlaylists.getSelectedIndex()).getSongInPlaylist().get(0).getSongName());
+
+//		 		System.out.println(generalModel.getInstance().getUserPlaylist(currUser).get(comboBoxPlaylists.getSelectedIndex()).getSongInPlaylist().get(0).getSongName());
+
 //		 	 
 //				
 //		 		dispose();

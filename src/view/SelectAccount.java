@@ -20,7 +20,7 @@ public class SelectAccount extends JFrame{
 	SigningUpView signingUpViewing;
 	account signUpData,registeredData;
 	LoggingInView loggingInViewing;
-	//ArtistLoggingInView artistLoggingInView;
+	ArtistLoggingInView artistLoggingInView;
 	public JButton btnSignUp,btnGuestAccount,btnRegisteredAccount, ArtistAccountbtn;
 	
 	
@@ -38,7 +38,7 @@ public class SelectAccount extends JFrame{
 		
 		signingUpViewing = new SigningUpView();
 		loggingInViewing = new LoggingInView();
-//		artistLoggingInView = new ArtistLoggingInView();
+		artistLoggingInView = ArtistLoggingInView.getInstance();
 		JPanel backgroundPanel = new JPanel();
 		getContentPane().add(backgroundPanel, BorderLayout.CENTER);
 		backgroundPanel.setLayout(null);
@@ -135,7 +135,7 @@ public class SelectAccount extends JFrame{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			//artistLoggingInView.setVisible(true);
+			artistLoggingInView.setVisible(true);
 		}
 		
 	}
