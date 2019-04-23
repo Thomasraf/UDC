@@ -717,7 +717,7 @@ public class Database{
 			Connection cnt = getConnection();
 			int x = 0;
 			int y = 0;
-			int z = 0;
+			String z = "0";
 			String query = "INSERT INTO udc.user_playlists (Username,Playlist,Favorite,Privacy) SELECT ('"+username+"'),PlaylistName,('"+x+"'),('"+y+"'), FROM udc.playlists WHERE PlaylistName = ('"+playlistName+"') AND Privacy = ('"+z+"');";
 			
 			try {

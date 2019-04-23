@@ -134,7 +134,6 @@ public class SigningUpView extends JFrame{
 
 				
 				HomeView.getInstance().setUserName(username);
-			//	HomeView.getInstance().setDisplayPicture(path);
 				closingWindow();
 				SelectAccount.getInstance().setVisible(false);
 

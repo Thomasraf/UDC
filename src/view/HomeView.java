@@ -63,18 +63,6 @@ public class HomeView extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					HomeView frame = new HomeView();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 	
 	public static HomeView getInstance() {
         if (instance == null) {
@@ -239,22 +227,6 @@ public class HomeView extends JFrame {
 		btnLogout.setBackground(new Color(30, 58, 42));
 		TopBar.add(btnLogout);
 		
-		txtSearch = new JTextField();
-		txtSearch.setForeground(SystemColor.desktop);
-		txtSearch.setText("Search");
-		txtSearch.setHorizontalAlignment(SwingConstants.LEFT);
-		txtSearch.setBounds(95, 11, 170, 39);
-		TopBar.add(txtSearch);
-		txtSearch.setColumns(10);
-		
-		txtSearch = new JTextField();
-		txtSearch.setForeground(SystemColor.desktop);
-		txtSearch.setText("Search");
-		txtSearch.setHorizontalAlignment(SwingConstants.LEFT);
-		txtSearch.setBounds(95, 11, 170, 39);
-		TopBar.add(txtSearch);
-		txtSearch.setColumns(10);
-		
 		JButton SearchBtn = new JButton("");
 		SearchBtn.setIcon(new ImageIcon(HomeView.class.getResource("/images2/magnifying-glass (1).png")));
 		SearchBtn.setBorder(null);
@@ -291,6 +263,11 @@ public class HomeView extends JFrame {
 		Refreshbtn.setBackground(new Color(30, 58, 42));
 		Refreshbtn.setBounds(1035, 11, 39, 39);
 		TopBar.add(Refreshbtn);
+		
+		btnSearch = new JButton("Search");
+		btnSearch.setBounds(104, 11, 110, 39);
+		TopBar.add(btnSearch);
+		btnSearch.addActionListener(new btn_Search());
 		
 		JPanel MusicPanel = new JPanel();
 		MusicPanel.setBackground(new Color(254, 254, 250));
@@ -615,6 +592,14 @@ public class HomeView extends JFrame {
 		 }
 	 }
 	
+	class btn_Search implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			SearchView.getInstance().setVisible(true);
+		}
+	}
+	
 	class btn_Library implements ActionListener
 	 {
 		 public void actionPerformed(ActionEvent e)
@@ -722,5 +707,4 @@ public class HomeView extends JFrame {
 			this.currentUser = currentUser;
 			Profile.setText("Current User: " + currentUser);
 		}
-		
 }
