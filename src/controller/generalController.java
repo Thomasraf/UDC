@@ -1,5 +1,8 @@
 package controller;
 import model.generalModel;
+
+import java.util.ArrayList;
+
 import model.Album;
 import model.ArtistPlaylist;
 import model.Playlist;
@@ -51,6 +54,11 @@ public class generalController {
 	public void addSong(Song s)
 	{
 		generalModel.getInstance().addSong(s);
+	}
+	
+	public ArrayList<String> getAlbumsOfUser(String username)
+	{
+		return generalModel.getInstance().getAlbumsOfUser(username);
 	}
 /*	
 	public int getIDWithUsername(String username)

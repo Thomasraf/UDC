@@ -142,6 +142,7 @@ public class CreateAlbum extends JFrame {
 			 AlbumList aList = new AlbumList();
 			 
 			 generalController.getInstance().addAlbum(addedAlbum);
+			 setVisible(false);
 			 
 //			 for(int i = 0; i < generalModel.getInstance().getUserAlbum(username).size();i++)
 //			 {
