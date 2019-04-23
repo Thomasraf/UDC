@@ -1,4 +1,4 @@
-	package controller;
+package controller;
 import model.Database;
 import view.SelectAccount;
 
@@ -14,12 +14,8 @@ public class Driver {
 		String URL = "jdbc:mysql://localhost:3306/";
 
 
-		String USERNAME = "root";
-
+		String USERNAME = "ariel";
 		String PASSWORD = "arielariel0";
-//		String PASSWORD = "arielariel0";
-
-
 		String DATABASE = "udc";
 
 
