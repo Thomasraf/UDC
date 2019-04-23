@@ -37,15 +37,13 @@ public class generalModel {
 		Database.getInstance().writePlaylistBLOB(p.getPlaylistName(),p.getPath(),p.getDescription());
 	}
 	
-	public int getAccountData(account x, String path) { //SIGNING UP
-		if(Database.getInstance().addingAccount(x) == false) {
+	public void getAccountData(account x,String type) { //SIGNING UP
+		if(Database.getInstance().addingAccount(x,type) == false) {
 			SigningUpView.getInstance().signingSuccessful();
-			Database.getInstance().writeDisplayPictureBLOB(x.getUsername(),path);
-			return 1;
 		}
 		else{
 			SigningUpView.getInstance().signingFailed();
-			return 0;
+		
 		}
 	}
 	
@@ -128,10 +126,6 @@ public class generalModel {
 	
 	public void readSongData(int SongID) {
 		Database.getInstance().readBLOB(SongID);
-	}
-	
-	public void readDisplayPicture(String username) {
-		Database.getInstance().readDisplayPictureBLOB(username);
 	}
 
 	public void updateCount(int SongID) {

@@ -575,6 +575,7 @@ public class SearchResultView extends JFrame {
 		btnAddPlaylist = new JButton("Add Playlist");
 		btnAddPlaylist.setBounds(328, 11, 89, 23);
 		Dashboard.add(btnAddPlaylist);
+		btnAddPlaylist.addActionListener(new btn_AddPlaylist());
 		
 		btnGoToListener = new JButton("Go To Listener");
 		btnGoToListener.setBounds(452, 11, 121, 23);

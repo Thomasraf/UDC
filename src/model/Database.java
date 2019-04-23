@@ -52,7 +52,7 @@ public class Database{
 			return false;
 		//CREATE TABLE IF NOT EXISTS
 		
-		String query = "CREATE TABLE IF NOT EXISTS accounts (Username varchar(255) PRIMARY KEY, Password varchar(255), Type varchar(255));"; //creating table
+		String query = "CREATE TABLE IF NOT EXISTS accounts (Username varchar(255), Password varchar(255), Type varchar(255));"; //creating table
 		String query2 = "CREATE TABLE IF NOT EXISTS playlists(PlaylistID int NOT NULL AUTO_INCREMENT PRIMARY KEY, PlaylistName varchar(255), Username varchar(255));";
 		String query3 = "CREATE TABLE IF NOT EXISTS songs(SongID int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY, Title varchar(255), "
 				+ "Artist varchar(255),Album varchar(255),Genre varchar(255), Year varchar(255), Username varchar(255), Play_Count int(11), Favorite varchar(255));";
@@ -60,7 +60,7 @@ public class Database{
 		String query5 = "CREATE TABLE IF NOT EXISTS songData(SongID int NOT NULL AUTO_INCREMENT PRIMARY KEY, data LONGBLOB, SongName varchar(255));";
 		String query6 = "CREATE TABLE IF NOT EXISTS songs_in_playlist(PlaylistID int PRIMARY KEY, PlaylistName varchar(255),SongID int(11), SongName varchar(255));";
 		String query7 = "CREATE TABLE IF NOT EXISTS playlistData(PlaylistID int NOT NULL AUTO_INCREMENT PRIMARY KEY, picture BLOB,PlaylistName varchar(255), description varchar(255));";
-		String query8 = "CREATE TABLE IF NOT EXISTS accountData(Username varchar(255) PRIMARY KEY, Profile_Picture BLOB);";
+		
 
 		String query9 = "CREATE TABLE IF NOT EXISTS album(albumid int NOT NULL AUTO_INCREMENT PRIMARY KEY, name varchar(255), username varchar(255), albumcover LONGBLOB);";
 
@@ -76,7 +76,7 @@ public class Database{
 		String queryIncrement4 = "ALTER TABLE user_playlists auto_increment = 1";
 		String queryIncrement5 = "ALTER TABLE songData auto_increment = 1";
 		String queryIncrement7 = "ALTER TABLE playlistData auto_increment = 1";
-		String queryIncrement8 = "ALTER TABLE accountData auto_increment = 1";
+		
 		String queryIncrement20 = "ALTER TABLE followingListener auto_increment = 1";
 		String queryIncrement21 = "ALTER TABLE followingArtist auto_increment = 1";
 //		String queryIncrement7 = "ALTER TABLE user_songs auto_increment = 1";
@@ -97,8 +97,6 @@ public class Database{
 			ps6.execute();
 			PreparedStatement ps7 = getConnection().prepareStatement(query7);
 			ps7.execute();
-			PreparedStatement ps8 = getConnection().prepareStatement(query8);
-			ps8.execute();
 			PreparedStatement ps20 = getConnection().prepareStatement(query20);
 			ps20.execute();
 			PreparedStatement ps21 = getConnection().prepareStatement(query21);
@@ -123,8 +121,6 @@ public class Database{
 //			ps6.execute();
 			ps7 = getConnection().prepareStatement(queryIncrement7);
 			ps7.execute();
-			ps8 = getConnection().prepareStatement(queryIncrement8);
-			ps8.execute();
 			ps20 = getConnection().prepareStatement(queryIncrement20);
 			ps20.execute();
 			ps21 = getConnection().prepareStatement(queryIncrement21);
@@ -177,10 +173,9 @@ public class Database{
 //		}
 //	}
 	
-	public boolean addingAccount(account newAccount){ //Signing Up
+	public boolean addingAccount(account newAccount,String type){ //Signing Up
 		String x,y;
 		boolean unique = false;
-		//get getConnection() from db
 		Connection cnt = getConnection();
 		x = newAccount.getUsername();
 		y = newAccount.getPassword();
@@ -202,7 +197,7 @@ public class Database{
 			}
 			else {
 				unique = false;
-				String query = "insert into accounts values ('"+x+"','"+y+"')";
+				String query = "insert into udc.accounts values ('"+x+"','"+y+"','"+type+"')";
 				PreparedStatement ps = getConnection().prepareStatement(query);
 				ps.execute();		
 				ps.close();
@@ -468,38 +463,6 @@ public class Database{
 			
 		}
 	
-	public void writeDisplayPictureBLOB(String username, String path) {
-		
-		Connection cnt = getConnection();
-		FileInputStream input = null;
-		PreparedStatement myStatement = null;
-		
-		String query = "INSERT INTO accountData VALUES (?,?)";
-		
-		//create string qu
-		
-		try {
-			myStatement = cnt.prepareStatement(query);
-			
-			File theDisplayPictureFile = new File(path); //Place instead of song.getSongName()
-			input = new FileInputStream(theDisplayPictureFile);
-			myStatement.setBinaryStream(2, input);
-			myStatement.setString(1, username);
-			
-			System.out.println("Reading the jpeg file: " + theDisplayPictureFile.getAbsolutePath());
-			System.out.println("Storing picture into the database " + theDisplayPictureFile);
-			System.out.println(query);
-			
-			myStatement.execute();
-			
-			myStatement.close();
-
-		} catch (Exception ecx) {
-			ecx.printStackTrace();
-		} 
-		
-	}
-	
 	public void writePlaylistBLOB(String playlistName, String path, String description) {
 		
 		Connection cnt = getConnection();
@@ -551,41 +514,6 @@ public class Database{
 			rs = myReadingStatement.executeQuery();
 			
 			File file = new File("currentSong.mp3");
-			FileOutputStream output = new FileOutputStream(file);
-			
-            while (rs.next()) {
-                InputStream input = rs.getBinaryStream("data");
-                byte[] buffer = new byte[1024];
-                while (input.read(buffer) > 0) {
-                    output.write(buffer);
-                }
-                input.close();
-            }
-            
-            myReadingStatement.close();
-            output.close();
-			
-		}catch(Exception exc) {
-			exc.printStackTrace();
-		}finally {
-			
-		}
-	}
-	
-	public void readDisplayPictureBLOB(String username) {
-		Connection cnt = getConnection();
-		PreparedStatement myReadingStatement = null;
-		
-		String query = "SELECT data FROM accountData WHERE username = ('"+username+"');";
-		ResultSet rs = null;
-		
-		try {
-			myReadingStatement = cnt.prepareStatement(query);
-			myReadingStatement.setString(1, username);
-			
-			rs = myReadingStatement.executeQuery();
-			
-			File file = new File("DisplayPicture.jpeg");
 			FileOutputStream output = new FileOutputStream(file);
 			
             while (rs.next()) {
@@ -739,7 +667,7 @@ public class Database{
 		Connection cnt = getConnection();
 		int x = 0;
 		int y = 0;
-		String query = "INSERT INTO udc.songs (Title,Artist,Album,Genre,Year,Username,Play_Count,Favorite) SELECT Title,Artist,Album,Genre,Year,('"+username+"'),('"+x+"'),('"+y+"') FROM swdespa.songs WHERE Title = ('"+songName+"');";
+		String query = "INSERT INTO udc.songs (Title,Artist,Album,Genre,Year,Username,Play_Count,Favorite) SELECT Title,Artist,Album,Genre,Year,('"+username+"'),('"+x+"'),('"+y+"') FROM udc.songs WHERE Title = ('"+songName+"');";
 		//create string qu
 		
 		try {
@@ -768,7 +696,7 @@ public class Database{
 			Connection cnt = getConnection();
 			int x = 0;
 			int y = 0;
-			String query = "INSERT INTO swdespa.songs (Title,Artist,Album,Genre,Year,Username,Play_Count,Favorite) SELECT Title,Artist,Album,Genre,Year,('"+username+"'),('"+x+"'),('"+y+"') FROM swdespa.songs WHERE Title = ('"+songName+"');";
+			String query = "INSERT INTO udc.songs (Title,Artist,Album,Genre,Year,Username,Play_Count,Favorite) SELECT Title,Artist,Album,Genre,Year,('"+username+"'),('"+x+"'),('"+y+"') FROM udc.songs WHERE Title = ('"+songName+"');";
 			//create string qu
 			
 			try {
@@ -789,8 +717,8 @@ public class Database{
 			Connection cnt = getConnection();
 			int x = 0;
 			int y = 0;
-			int z = 0;
-			String query = "INSERT INTO swdespa.user_playlists (Username,Playlist,Favorite,Privacy) SELECT ('"+username+"'),PlaylistName,('"+x+"'),('"+y+"'), FROM swdespa.playlists WHERE PlaylistName = ('"+playlistName+"') AND Privacy = ('"+z+"');";
+			String z = "0";
+			String query = "INSERT INTO udc.user_playlists (Username,Playlist,Favorite,Privacy) SELECT ('"+username+"'),PlaylistName,('"+x+"'),('"+y+"'), FROM udc.playlists WHERE PlaylistName = ('"+playlistName+"') AND Privacy = ('"+z+"');";
 			
 			try {
 				//create prepared statement	
@@ -820,7 +748,7 @@ public class Database{
 		int y = 0;
 		int z = 0;
 
-		String query = "INSERT INTO udc.playlists (Username,Playlist,Favorite,Privacy) SELECT ('"+username+"'),PlaylistName,('"+x+"'),('"+y+"'), FROM swdespa.playlists WHERE PlaylistName = ('"+playlistName+"') AND Privacy = ('"+z+"');";
+		String query = "INSERT INTO udc.playlists (Username,Playlist,Favorite,Privacy) SELECT ('"+username+"'),PlaylistName,('"+x+"'),('"+y+"'), FROM udc.playlists WHERE PlaylistName = ('"+playlistName+"') AND Privacy = ('"+z+"');";
 
 		
 		try {
