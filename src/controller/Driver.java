@@ -14,8 +14,10 @@ public class Driver {
 		String URL = "jdbc:mysql://localhost:3306/";
 
 
-		String USERNAME = "ariel";
-		String PASSWORD = "arielariel0";
+//		String USERNAME = "ariel";
+//		String PASSWORD = "arielariel0";
+		String USERNAME = "root";
+		String PASSWORD = "rootadmin";
 		String DATABASE = "udc";
 
 

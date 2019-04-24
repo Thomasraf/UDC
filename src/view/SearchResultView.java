@@ -24,6 +24,7 @@ import java.awt.SystemColor;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 
 public class SearchResultView extends JFrame {
 
@@ -590,7 +591,8 @@ public class SearchResultView extends JFrame {
 		btnGoToArtist.setBounds(595, 11, 121, 23);
 		Dashboard.add(btnGoToArtist);
 		btnGoToArtist.addActionListener(new btn_GoToArtist());
-		
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
 	}
 	
 	class btn_Refresh implements ActionListener
@@ -649,7 +651,8 @@ public class SearchResultView extends JFrame {
 	{
 		public void actionPerformed(ActionEvent e) 
 		{
-			generalModel.getInstance().addSearchSongs(searchingText,currentUser);		
+			generalModel.getInstance().addSearchSongs(searchingText,currentUser);	
+			JOptionPane.showMessageDialog(null, "Song " + searchingText + " added!");
 		}
 	}
 	
@@ -658,6 +661,7 @@ public class SearchResultView extends JFrame {
 		public void actionPerformed(ActionEvent e)
 		{
 			generalModel.getInstance().addSearchPlaylists(searchingText,currentUser);
+			JOptionPane.showMessageDialog(null, "Playlist " + searchingText + " added!");
 		}
 	}
 	public void setText(String text) {
