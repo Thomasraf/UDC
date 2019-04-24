@@ -591,7 +591,8 @@ public class SearchResultView extends JFrame {
 		btnGoToArtist.setBounds(595, 11, 121, 23);
 		Dashboard.add(btnGoToArtist);
 		btnGoToArtist.addActionListener(new btn_GoToArtist());
-		
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
 	}
 	
 	class btn_Refresh implements ActionListener
