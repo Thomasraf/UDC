@@ -551,6 +551,7 @@ public class ListenerView extends JFrame {
 		JList list_1 = new JList();
 		list_1.setBounds(580, 211, 149, 274);
 		Dashboard.add(list_1);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 	
 	class btn_Refresh implements ActionListener

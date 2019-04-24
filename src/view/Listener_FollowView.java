@@ -667,6 +667,7 @@ public class Listener_FollowView extends JFrame {
 		btnAddSong.setBounds(457, 126, 136, 35);
 		Dashboard.add(btnAddSong);
 		btnAddSong.addActionListener(new btn_AddSong());
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 	
 	class btn_Refresh implements ActionListener
