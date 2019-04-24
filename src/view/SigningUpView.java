@@ -143,8 +143,13 @@ public class SigningUpView extends JFrame{
 		}
 		
 		public void signingSuccessful() {
+			String accountType = (String) comboBox.getSelectedItem();
 			JOptionPane.showMessageDialog(null, "Signing Up Successful!");
-			HomeView.getInstance().setVisible(true);
+			
+			if(accountType == "Listener")
+				HomeView.getInstance().setVisible(true);
+			else if(accountType == "Artist")
+				HomeViewA.getInstance().setVisible(true);
 		}
 		public void signingFailed() {
 			JOptionPane.showMessageDialog(null, "Username already exisits! Please Try Again!");

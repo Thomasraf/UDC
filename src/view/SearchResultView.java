@@ -31,11 +31,11 @@ public class SearchResultView extends JFrame {
 	boolean evenClick = false;
 	private JButton Artist_Dashboard;
 	JButton Refreshbtn,btnAddSong,btnAddPlaylist,btnGoToListener,btnGoToArtist;
-	JList SongsList,listPlaylist;
+	JList SongsList,PlaylistJList;
 	ArrayList<Song> searchSongs, userSongs;
 	String currentUser;
 	ArrayList<Playlist> searchPlaylist;
-	ArrayList<account> searchingListenerAccount,searchArtistAccount;
+	ArrayList<account> searchingListenerAccount,searchingArtistAccount;
 	private volatile static SearchResultView instance = null;
 	public static SearchResultView getInstance() {
         if (instance == null) {
@@ -561,9 +561,9 @@ public class SearchResultView extends JFrame {
 		ListPlaylist.setBounds(580, 50, 174, 30);
 		Dashboard.add(ListPlaylist);
 		
-		listPlaylist = new JList();
-		listPlaylist.setBounds(582, 79, 170, 417);
-		Dashboard.add(listPlaylist);
+		PlaylistJList = new JList();
+		PlaylistJList.setBounds(582, 79, 170, 417);
+		Dashboard.add(PlaylistJList);
 		
 		JButton button_5 = new JButton("");
 		button_5.setEnabled(false);
@@ -589,7 +589,7 @@ public class SearchResultView extends JFrame {
 		btnGoToArtist = new JButton("Go To Artist");
 		btnGoToArtist.setBounds(595, 11, 121, 23);
 		Dashboard.add(btnGoToArtist);
-		
+		btnGoToArtist.addActionListener(new btn_GoToArtist());
 		
 	}
 	
@@ -600,26 +600,27 @@ public class SearchResultView extends JFrame {
 			
 			searchSongs = generalModel.getInstance().getSearchSongs(searchingText);
 			searchPlaylist = generalModel.getInstance().getSearchPlaylist(searchingText);
-			searchingListenerAccount = generalModel.getInstance().gettingFollowersList(searchingText);
+			searchingListenerAccount = generalModel.getInstance().gettingFollowersListSearch(searchingText);
+			searchingArtistAccount = generalModel.getInstance().gettingFollowersArtistListSearch(searchingText);
 			
 			DefaultListModel DLM1 = new DefaultListModel();
 			DefaultListModel DLM2 = new DefaultListModel();
 			DefaultListModel DLM3 = new DefaultListModel();
+			DefaultListModel DLM4 = new DefaultListModel();
 			
 			for(int a = 0; a < searchSongs.size(); a++)
 				DLM1.addElement(searchSongs.get(a).getSongName());
-			
 			for(int b = 0; b < searchPlaylist.size();b++)
 				DLM2.addElement(searchPlaylist.get(b).getPlaylistName());
 			for(int c = 0; c < searchingListenerAccount.size();c++)
 				DLM3.addElement(searchingListenerAccount.get(c).getUsername());
-			
-			
+			for(int d = 0; d < searchingArtistAccount.size();d++)
+				DLM4.addElement(searchingArtistAccount.get(d).getUsername());
 			
 			SongsList.setModel(DLM1);
-			listPlaylist.setModel(DLM2);
+			PlaylistJList.setModel(DLM2);
 			Followers_List.setModel(DLM3);
-			
+			Artist_list.setModel(DLM4);
 			
 		}
 	}
@@ -631,6 +632,16 @@ public class SearchResultView extends JFrame {
 			Listener_FollowView.getInstance().setText(searchingText);
 			Listener_FollowView.getInstance().setUsername(currentUser);
 			Listener_FollowView.getInstance().setVisible(true);
+		}
+	}
+	
+	class btn_GoToArtist implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			Listener_FollowViewA.getInstance().setText(searchingText);
+			Listener_FollowViewA.getInstance().setUsername(currentUser);
+			Listener_FollowViewA.getInstance().setVisible(true);
 		}
 	}
 	

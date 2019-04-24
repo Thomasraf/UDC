@@ -77,7 +77,7 @@ public class Database{
 		String queryIncrement4 = "ALTER TABLE user_playlists auto_increment = 1";
 		String queryIncrement5 = "ALTER TABLE songData auto_increment = 1";
 		String queryIncrement7 = "ALTER TABLE playlistData auto_increment = 1";
-		
+		String queryIncrement9 = "ALTER TABLE album auto_increment = 1";
 		String queryIncrement20 = "ALTER TABLE followingListener auto_increment = 1";
 		String queryIncrement21 = "ALTER TABLE followingArtist auto_increment = 1";
 //		String queryIncrement7 = "ALTER TABLE user_songs auto_increment = 1";
@@ -98,6 +98,8 @@ public class Database{
 			ps6.execute();
 			PreparedStatement ps7 = getConnection().prepareStatement(query7);
 			ps7.execute();
+			PreparedStatement ps9 = getConnection().prepareStatement(query9);
+			ps9.execute();
 			PreparedStatement ps20 = getConnection().prepareStatement(query20);
 			ps20.execute();
 			PreparedStatement ps21 = getConnection().prepareStatement(query21);
@@ -118,10 +120,12 @@ public class Database{
 			ps4.execute();
 			ps5 = getConnection().prepareStatement(queryIncrement5);
 			ps5.execute();
-//			ps6 = getConnection().prepareStatement(queryIncrement6);
-//			ps6.execute();
+			ps9 = getConnection().prepareStatement(queryIncrement9);
+			ps9.execute();
 			ps7 = getConnection().prepareStatement(queryIncrement7);
 			ps7.execute();
+			ps9 = getConnection().prepareStatement(queryIncrement9);
+			ps9.execute();
 			ps20 = getConnection().prepareStatement(queryIncrement20);
 			ps20.execute();
 			ps21 = getConnection().prepareStatement(queryIncrement21);
@@ -177,13 +181,22 @@ public class Database{
 	public boolean addingAccount(account newAccount,String type){ //Signing Up
 		String x,y;
 		boolean unique = false;
+		boolean artist = false;
+		boolean whichType = false;
 		Connection cnt = getConnection();
 		x = newAccount.getUsername();
 		y = newAccount.getPassword();
-		
+		 //false being Listener
+		 //true being Artist
+		if(type == "Listener") {
+			whichType = false;
+		}
+		else if(type == "Artist"){
+			whichType = true;
+		}
 		
 		String query2 = "SELECT * FROM udc.accounts WHERE username =('"+newAccount.getUsername()+"') AND password = ('"+newAccount.getPassword()+"')";
-
+		
 		//create string query
 		
 		try {
@@ -686,7 +699,45 @@ public class Database{
 		//get getConnection() from db
 		Connection cnt = getConnection();
 		
-		String query = "SELECT * FROM udc.followinglistener WHERE Username =('"+searchText+"');";
+		String query = "SELECT * FROM udc.accounts WHERE Username =('"+searchText+"');";
+		//create string qu
+		
+		try {
+			//create prepared statement	
+			PreparedStatement ps = cnt.prepareStatement(query);
+			
+			//get result and store in result set
+			ResultSet rs = ps.executeQuery();
+			
+			ArrayList<account> a1 = new ArrayList<>();
+			//transform set into list
+			while(rs.next()) {
+				 account searchAccount = new accountBuilder()
+						 .setUsername(rs.getString("Username"))
+						 .getAccount();
+				 a1.add(searchAccount);
+			}
+			
+			//close all the resources
+			ps.close();
+			rs.close();
+			cnt.close();
+			
+			return a1;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null; 
+		
+	}
+	
+	public ArrayList<account> getUserListenerAccount(String currentUser) {
+		boolean proceed = false;
+		//get getConnection() from db
+		Connection cnt = getConnection();
+		
+		String query = "SELECT * FROM udc.followinglistener WHERE Username =('"+currentUser+"');";
 		//create string qu
 		
 		try {
@@ -719,12 +770,52 @@ public class Database{
 		
 	}
 	
+	public ArrayList<account> getUserArtistAccount(String currentUser) {
+		boolean proceed = false;
+		//get getConnection() from db
+		Connection cnt = getConnection();
+		
+		String query = "SELECT * FROM udc.followingartist WHERE Username =('"+currentUser+"');";
+		//create string qu
+		
+		try {
+			//create prepared statement	
+			PreparedStatement ps = cnt.prepareStatement(query);
+			
+			//get result and store in result set
+			ResultSet rs = ps.executeQuery();
+			
+			ArrayList<account> a1 = new ArrayList<>();
+			//transform set into list
+			while(rs.next()) {
+				 account searchAccount = new accountBuilder()
+						 .setUsername(rs.getString("Artist_Name"))
+						 .getAccount();
+				 a1.add(searchAccount);
+			}
+			
+			//close all the resources
+			ps.close();
+			rs.close();
+			cnt.close();
+			
+			return a1;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null; 
+		
+	}
+	
+	
+	
 	public ArrayList<account> getSearchArtistAccount(String searchText) {
 		boolean proceed = false;
 		//get getConnection() from db
 		Connection cnt = getConnection();
 		
-		String query = "SELECT * FROM udc.followinglistener WHERE Username =('"+searchText+"');";
+		String query = "SELECT * FROM udc.accounts WHERE Username =('"+searchText+"');";
 		//create string qu
 		
 		try {
@@ -738,7 +829,7 @@ public class Database{
 			//transform set into list
 			while(rs.next()) {
 				 account searchAccount = new accountBuilder()
-						 .setUsername(rs.getString("Artist_Name"))
+						 .setUsername(rs.getString("Username"))
 						 .getAccount();
 				 a2.add(searchAccount);
 			}
@@ -844,6 +935,35 @@ public class Database{
 		String y = "0";
 		String z = "0";
 		String query = "insert into udc.followinglistener values ('"+username+"','"+listenerName+"')";
+		
+		try {
+			//create prepared statement	
+			PreparedStatement ps = cnt.prepareStatement(query);
+			ps.execute();
+			//get result and store in result set
+			
+			
+			//close all the resources
+			ps.close();
+			cnt.close();
+			
+		
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		//return null; 
+		
+	}
+	
+public void addArtistFollow(String listenerName,String username) {
+		
+		//get getConnection() from db
+		Connection cnt = getConnection();
+		int x = 0;
+		String y = "0";
+		String z = "0";
+		String query = "insert into udc.followingartist values ('"+username+"','"+listenerName+"')";
 		
 		try {
 			//create prepared statement	

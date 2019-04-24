@@ -124,18 +124,37 @@ public class generalModel {
 		Database.getInstance().addListenerFollow(listenerName,username);
 	}
 	
+//	public void addArtistSongs(String songName,String username) {
+//		Database.getInstance().addArtistSong(songName,username);
+//	}
+//	
+//	public void addArtistPlaylists(String playlistName,String username) {
+//		Database.getInstance().addArtistPlaylist(playlistName,username);
+//	}
+//	
+	public void addArtistFollow(String listenerName,String username) {
+		Database.getInstance().addArtistFollow(listenerName,username);
+	}
+	
 	public ArrayList<Playlist> getSearchPlaylist(String searchText){
 		return Database.getInstance().getSearchPlaylist(searchText);
 	}
 	
-	public ArrayList<account> gettingFollowersList(String searchText) {
+	public ArrayList<account> gettingFollowersListSearch(String searchText) {
 		return Database.getInstance().getSearchAccount(searchText);
 	}
 	
-	public ArrayList<account> gettingFollowersArtistList(String searchText){
+	public ArrayList<account> gettingFollowersArtistListSearch(String searchText){
 		return Database.getInstance().getSearchArtistAccount(searchText);
 	}
 	
+	public ArrayList<account> gettingFollowersList(String searchText) {
+		return Database.getInstance().getUserListenerAccount(searchText);
+	}
+	
+	public ArrayList<account> gettingFollowersArtistList(String searchText){
+		return Database.getInstance().getUserArtistAccount(searchText);
+	}
 	
 	public ArrayList<Playlist> gettingPlaylists(String t){
 		return Database.getInstance().getPlaylist(t);
