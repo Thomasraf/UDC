@@ -92,10 +92,7 @@ public class AddSong extends JFrame {
 //		contentPane.add(textFieldAlbum);
 		albumComboBox =  new JComboBox();
 		albumComboBox.setBounds(87, 164, 162, 20);
-		for(String e: generalController.getInstance().getAlbumsOfUser(currentUser))
-		{
-			albumComboBox.addItem(e);
-		}
+		
 		contentPane.add(albumComboBox);
 		
 		
@@ -278,6 +275,15 @@ public class AddSong extends JFrame {
 	{
 		currentUser = name;
 		lblArtist.setText(currentUser);
+		loadUserAlbums();
+	}
+	
+	public void loadUserAlbums()
+	{
+		for(String e: generalController.getInstance().getAlbumsOfUser(currentUser))
+		{
+			albumComboBox.addItem(e);
+		}
 	}
 	
 	public void closingWindow() {

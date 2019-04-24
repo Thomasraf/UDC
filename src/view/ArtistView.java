@@ -735,6 +735,7 @@ private volatile static ArtistView modelInstance = null;
 		Dashboard.add(AddAlbum);
 		
 		AddAlbum.addActionListener(new addAlbumbtn());
+		RemoveSongfromAlbum.addActionListener(new btn_RemoveSongAlbum());
 
 	}
 	
@@ -747,6 +748,15 @@ private volatile static ArtistView modelInstance = null;
 			createAlbumView.setVisible(true);
 		}
 		
+	}
+	
+	class btn_RemoveSongAlbum implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		 {
+			 RemoveSongFromAlbumView.getInstance().setVisible(true);
+			 
+		 }
 	}
 	
 	class playlistsbtn implements ActionListener
