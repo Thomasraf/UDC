@@ -28,6 +28,7 @@ import java.awt.SystemColor;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 
 public class Listener_FollowView extends JFrame {
 
@@ -701,6 +702,7 @@ public class Listener_FollowView extends JFrame {
 			
 			String playlistName = userPlaylists.get(playlistJList.getSelectedIndex()).getPlaylistName();
 			generalModel.getInstance().addListenerPlaylists(playlistName,currentUser);
+			JOptionPane.showMessageDialog(null, "Playlist " + playlistName + " added!");
 		}
 	}
 	
@@ -710,6 +712,7 @@ public class Listener_FollowView extends JFrame {
 		{
 			String songName = userSongs.get(songJList.getSelectedIndex()).getSongName();
 			generalModel.getInstance().addListenerSongs(songName,currentUser);
+			JOptionPane.showMessageDialog(null, "Playlist " + songName + " added!");
 		}
 	}
 	
@@ -718,6 +721,7 @@ public class Listener_FollowView extends JFrame {
 		public void actionPerformed(ActionEvent e)
 		{
 			generalModel.getInstance().addListenerFollow(searchingText,currentUser);
+			JOptionPane.showMessageDialog(null, "User: " + searchingText + " followed!");
 		}
 	}
 	public void setText(String searchText) {

@@ -698,8 +698,8 @@ public class Database{
 		boolean proceed = false;
 		//get getConnection() from db
 		Connection cnt = getConnection();
-		
-		String query = "SELECT * FROM udc.accounts WHERE Username =('"+searchText+"');";
+		String type = "Listener";
+		String query = "SELECT * FROM udc.accounts WHERE Username =('"+searchText+"') AND Type = ('"+type+"');";
 		//create string qu
 		
 		try {
@@ -814,8 +814,8 @@ public class Database{
 		boolean proceed = false;
 		//get getConnection() from db
 		Connection cnt = getConnection();
-		
-		String query = "SELECT * FROM udc.accounts WHERE Username =('"+searchText+"');";
+		String type = "Artist";
+		String query = "SELECT * FROM udc.accounts WHERE Username =('"+searchText+"') AND Type = ('"+type+"');";
 		//create string qu
 		
 		try {
